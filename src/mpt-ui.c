@@ -31,17 +31,17 @@ int main(int argc, char const *argv[])
 
 	start_color();
 
-	init_color(C_BGWBG);
-	init_pair(P_BGW, COLOR_WHITE, C_BGWBG);
+	init_color(CN_BGWBG, CC_BGWBG);
+	init_pair(P_BGW, COLOR_WHITE, CN_BGWBG);
 
-	init_color(C_BGWBGH);
-	init_pair(P_BGWH, COLOR_GREEN, C_BGWBGH);
+	init_color(CN_BGWBGH, CC_BGWBGH);
+	init_pair(P_BGWH, COLOR_GREEN, CN_BGWBGH);
 
-	init_color(C_FGWBG);
-	init_pair(P_FGW, COLOR_WHITE, C_FGWBG);
+	init_color(CN_FGWBG, CC_FGWBG);
+	init_pair(P_FGW, COLOR_WHITE, CN_FGWBG);
 
-	init_color(C_BGWBGH);
-	init_pair(P_FGWH, COLOR_BLACK, C_BGWBGH);
+	init_color(CN_FGWBGH, CC_FGWBGH);
+	init_pair(P_FGWH, COLOR_BLACK, CN_FGWBGH);
 
 	wattron(stdscr, COLOR_PAIR(P_BGW));
 	move(0, 0);
