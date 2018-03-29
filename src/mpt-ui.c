@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ncurses.h>
-
 #include "door.h"
 #include "color.h"
 
@@ -18,7 +17,6 @@ void printWindowSize(WINDOW* win)
 
 int main(int argc, char const *argv[])
 {
-  //Init
 	initscr(); //Initialize screen
 	cbreak(); //Disable input buffering
 	noecho(); //Dont write input to terminal
@@ -33,8 +31,7 @@ int main(int argc, char const *argv[])
 
 	start_color();
 	setupColorPairs();
-  
-  //Testing Colors
+
 	wattron(stdscr, COLOR_PAIR(P_BGW));
 	move(0, 0);
 	wprintw(stdscr, "BGWINDOW\t\t%d", COLOR_PAIR(P_BGW));
@@ -57,6 +54,8 @@ int main(int argc, char const *argv[])
 	//addBorder(testDoor);
 	//printDoor(testDoor, stdscr);
 
+	//printf("%d\n", ACS_HLINE);
+
 	//MAIN LOOP
 	int ch = 0;
 	while((ch = getch()) != KEY_F(10))
@@ -69,5 +68,5 @@ int main(int argc, char const *argv[])
 	}
 
 	endwin(); //End the window before exiting
-	return 0;
+	exit(0);
 }
