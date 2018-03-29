@@ -15,4 +15,6 @@
 #define P_FGW 20
 #define P_FGWH 25
 
+void setupColorPairs();
+
 #endif
