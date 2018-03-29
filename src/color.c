@@ -1,5 +1,5 @@
 #include <ncurses.h>
-#include "colornames.h"
+#include "color.h"
 
 void setupColorPairs()
 {

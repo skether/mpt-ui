@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ncurses.h>
 #include "door.h"
-#include "colornames.h"
+#include "color.h"
 
 void printWindowSize(WINDOW* win)
 {

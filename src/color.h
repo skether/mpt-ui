@@ -1,5 +1,5 @@
-#ifndef COLORNAMES_H
-#define COLORNAMES_H
+#ifndef COLOR_H
+#define COLOR_H
 
 #define CN_BGWBG 18
 #define CC_BGWBG 0, 0, 529
