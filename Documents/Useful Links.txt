@@ -1,1 +1,2 @@
 http://www.cs.ukzn.ac.za/~hughm/os/notes/ncurses.html
+https://stackoverflow.com/questions/47686906/ncurses-init-color-has-no-affect
