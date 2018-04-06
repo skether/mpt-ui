@@ -1,6 +1,6 @@
 #include <iostream>
 #include <ncurses.h>
-#include "color.c"
+#include "color.h"
 
 #define nl '\n'
 
