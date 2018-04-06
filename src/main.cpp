@@ -17,12 +17,12 @@ int main()
 	if (has_colors() == FALSE)
 	{
 	    endwin();
-	    printf("Your terminal does not support color\n");
+	    std::cout << "Your terminal does not support color\n";
 	    return 1;
 	}
 
 	start_color();
-	color::setupColorPairs();
+	setupColorPairs();
 
 	wattron(stdscr, COLOR_PAIR(P_BGW));
 	move(0, 0);

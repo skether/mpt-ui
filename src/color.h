@@ -15,10 +15,6 @@
 #define P_FGW 20
 #define P_FGWH 25
 
-class color
-{
-public:
-	static void setupColorPairs();
-};
+void setupColorPairs();
 
 #endif

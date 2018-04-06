@@ -1,7 +1,7 @@
 #include <ncurses.h>
 #include "color.h"
 
-extern void color::setupColorPairs()
+void setupColorPairs()
 {
 	init_color(CN_BGWBG, CC_BGWBG);
 	init_pair(P_BGW, COLOR_WHITE, CN_BGWBG);
