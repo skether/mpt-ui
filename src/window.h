@@ -2,6 +2,7 @@
 #define WINDOW_H
 
 #include <vector>
+#include <list>
 
 //Base class for window objects
 class Window
@@ -35,5 +36,11 @@ public:
 	//This immediately sets the contentBuffer to the new values
 	void setBorder();
 };
+
+//Method for printing windows
+void printWindows(std::list windowList)
+{
+	
+}
 
 #endif

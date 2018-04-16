@@ -58,3 +58,17 @@ void Window::setBorder()
 	setCharacter(height-1, 0, ACS_LLCORNER, defaultColor);				//Setting lower left corner
 	setCharacter(height-1, width-1, ACS_LRCORNER, defaultColor);		//Setting lower right corner
 }
+
+void printWindows(std::list windowList)
+{
+	erase();
+	for (int cRow = 0; cRow < win.height; ++cRow)
+	{
+		move(win.posRow+cRow, win.posCol);
+		for (int cCol = 0; cCol < win.width; ++cCol)
+		{
+			addch(win.getCharacter(cRow, cCol));
+		}
+	}
+	refresh();
+}

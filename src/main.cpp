@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <list>
 
 #include <ncurses.h>
 
@@ -68,9 +69,17 @@ int main()
 	move(3, 0);
 	wprintw(stdscr, "FGWINDOWHIGHLIGHT\t%d", COLOR_PAIR(P_FGWH));*/
 
-	Window testWindow(20, 50, 2, 15, 0);
+	std::list windowList;
+
+	Window testWindow(20, 50, 2, 15, 1);
 	testWindow.setBorder();
-	printWindow(testWindow);
+
+	Window testBGW(LINES, COLS, 0, 0, 0);
+	testBGW.setBorder();
+
+	//printWindow(testWindow);
+
+	printWindows();
 
 
 
