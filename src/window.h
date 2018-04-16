@@ -14,6 +14,8 @@ public:
 	int posDepth;											//Sets the z-depth of the window
 	std::vector<int> contentBuffer;							//Stores the character information of the window
 
+	int defaultColor;										//Default colorPair for the window
+
 	//Base Constructor for the object
 	Window(int argHeight, int argWidth, int argPosRow, int argPosCol, int argPosDepth);
 
@@ -23,6 +25,8 @@ public:
 	//Sets character at the desired position
 	//This immediately sets the contentBuffer to the new value
 	void setCharacter(int row, int col, int newChar);
+
+	void setCharacter(int row, int col, int newChar, int color);
 
 	//Gets character at the desired position
 	int getCharacter(int row, int col);

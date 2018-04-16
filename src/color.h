@@ -10,6 +10,7 @@
 #define CN_FGWBGH 74
 #define CC_FGWBGH 372, 372, 843
 
+#define P_BLACKWHITE 0
 #define P_BGW 10
 #define P_BGWH 15
 #define P_FGW 20

@@ -52,7 +52,7 @@ int main()
 	//* DEBUG CODE *//
 	//**************//
 
-	wattron(stdscr, COLOR_PAIR(P_BGW));
+	/*wattron(stdscr, COLOR_PAIR(P_BGW));
 	move(0, 0);
 	wprintw(stdscr, "BGWINDOW\t\t%d", COLOR_PAIR(P_BGW));
 
@@ -66,7 +66,7 @@ int main()
 
 	wattron(stdscr, COLOR_PAIR(P_FGWH));
 	move(3, 0);
-	wprintw(stdscr, "FGWINDOWHIGHLIGHT\t%d", COLOR_PAIR(P_FGWH));
+	wprintw(stdscr, "FGWINDOWHIGHLIGHT\t%d", COLOR_PAIR(P_FGWH));*/
 
 	Window testWindow(20, 50, 2, 15, 0);
 	testWindow.setBorder();

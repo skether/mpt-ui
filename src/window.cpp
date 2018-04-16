@@ -1,4 +1,5 @@
 #include "window.h"
+#include "color.h"
 
 #include <ncurses.h>
 
@@ -15,8 +16,10 @@ Window::Window(int argHeight, int argWidth, int argPosRow, int argPosCol, int ar
 	posCol = argPosCol;
 	posDepth = argPosDepth;
 
+	defaultColor = COLOR_PAIR(P_BGW);
+
 	contentBuffer.reserve(height * width);
-	contentBuffer.resize(height * width, 32);
+	contentBuffer.resize(height * width, 32 | defaultColor);
 }
 
 //Destructor for the object
@@ -29,6 +32,8 @@ Window::~Window()
 //This immediately sets the contentBuffer to the new value
 void Window::setCharacter(int row, int col, int newChar) { contentBuffer[row * width + col] = newChar; }
 
+void Window::setCharacter(int row, int col, int newChar, int color) { contentBuffer[row * width + col] = (newChar | color); }
+
 //Gets character at the desired position
 int Window::getCharacter(int row, int col) { return contentBuffer[row * width + col]; }
 
@@ -36,20 +41,20 @@ int Window::getCharacter(int row, int col) { return contentBuffer[row * width + 
 //This immediately sets the contentBuffer to the new values
 void Window::setBorder()
 {
-	for (int i = 1; i < height-1; ++i)					//Setting Vertical borders
+	for (int i = 1; i < height-1; ++i)									//Setting Vertical borders
 	{
-		setCharacter(i, 0, ACS_VLINE);
-		setCharacter(i, width-1, ACS_VLINE);
+		setCharacter(i, 0, ACS_VLINE, defaultColor);
+		setCharacter(i, width-1, ACS_VLINE, defaultColor);
 	}
 
-	for (int i = 1; i < width-1; ++i)					//Setting Horizontal borders
+	for (int i = 1; i < width-1; ++i)									//Setting Horizontal borders
 	{
-		setCharacter(0, i, ACS_HLINE);
-		setCharacter(height-1, i, ACS_HLINE);
+		setCharacter(0, i, ACS_HLINE, defaultColor);
+		setCharacter(height-1, i, ACS_HLINE, defaultColor);
 	}
 
-	setCharacter(0, 0, ACS_ULCORNER);					//Setting upper left corner
-	setCharacter(0, width-1, ACS_URCORNER);				//Setting upper right corner
-	setCharacter(height-1, 0, ACS_LLCORNER);			//Setting lower left corner
-	setCharacter(height-1, width-1, ACS_LRCORNER);		//Setting lower right corner
+	setCharacter(0, 0, ACS_ULCORNER, defaultColor);						//Setting upper left corner
+	setCharacter(0, width-1, ACS_URCORNER, defaultColor);				//Setting upper right corner
+	setCharacter(height-1, 0, ACS_LLCORNER, defaultColor);				//Setting lower left corner
+	setCharacter(height-1, width-1, ACS_LRCORNER, defaultColor);		//Setting lower right corner
 }
