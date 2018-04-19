@@ -8,18 +8,20 @@
 //****************//
 
 //Base Constructor for the object
-Window::Window(int argHeight, int argWidth, int argPosRow, int argPosCol, int argPosDepth)
+Window::Window(int argHeight, int argWidth, int argPosRow, int argPosCol)
 {
 	height = argHeight;
 	width = argWidth;
 	posRow = argPosRow;
 	posCol = argPosCol;
-	posDepth = argPosDepth;
 
-	defaultColor = COLOR_PAIR(P_BGW);
+	defaultColor = COLOR_PAIR(0);
 
 	contentBuffer.reserve(height * width);
-	contentBuffer.resize(height * width, 32 | defaultColor);
+	contentBuffer.resize(height * width, 32);
+
+	contentColorBuffer.reserve(height * width);
+	contentColorBuffer.resize(height * width, defaultColor);
 }
 
 //Destructor for the object
@@ -30,12 +32,30 @@ Window::~Window()
 
 //Sets character at the desired position
 //This immediately sets the contentBuffer to the new value
-void Window::setCharacter(int row, int col, int newChar) { contentBuffer[row * width + col] = newChar; }
+//If no color is specified, default color will be set.
+void Window::setCharacter(int row, int col, int newChar) { setCharacter(row, col, newChar, defaultColor); }
 
-void Window::setCharacter(int row, int col, int newChar, int color) { contentBuffer[row * width + col] = (newChar | color); }
+void Window::setCharacter(int row, int col, int newChar, int color)
+{
+	contentBuffer[row * width + col] = newChar;
+	contentColorBuffer[row * width + col] = color;
+}
 
-//Gets character at the desired position
+//Gets character at the desired position. Returns the character without any color modifiers
 int Window::getCharacter(int row, int col) { return contentBuffer[row * width + col]; }
+
+//Gets character at the desired position. Returns the character with color modifiers
+int Window::getCharacterWithColor(int row, int col) { return (contentBuffer[row * width + col] | contentColorBuffer[row * width + col]); }
+
+//Sets the new default color and, refreshes the color buffer
+void Window::setDefaultColor(int color)
+{
+	defaultColor = color;
+	for (std::vector<int>::iterator i = contentColorBuffer.begin(); i != contentColorBuffer.end(); ++i)
+	{
+		*i = defaultColor;
+	}
+}
 
 //Adds border to the window
 //This immediately sets the contentBuffer to the new values
@@ -59,16 +79,20 @@ void Window::setBorder()
 	setCharacter(height-1, width-1, ACS_LRCORNER, defaultColor);		//Setting lower right corner
 }
 
-void printWindows(std::list windowList)
+void printWindows(std::list<Window*> windowList)
 {
 	erase();
-	for (int cRow = 0; cRow < win.height; ++cRow)
+	for(std::list<Window*>::iterator it = windowList.begin(); it != windowList.end(); ++it)
 	{
-		move(win.posRow+cRow, win.posCol);
-		for (int cCol = 0; cCol < win.width; ++cCol)
+		for (int cRow = 0; cRow < (*(*it)).height; ++cRow)
 		{
-			addch(win.getCharacter(cRow, cCol));
+			move((*(*it)).posRow+cRow, (*(*it)).posCol);
+			for (int cCol = 0; cCol < (*(*it)).width; ++cCol)
+			{
+				addch((*(*it)).getCharacterWithColor(cRow, cCol));
+			}
 		}
 	}
+	move(LINES-1, COLS-1);
 	refresh();
 }
