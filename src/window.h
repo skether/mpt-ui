@@ -23,9 +23,13 @@ public:
 
 	//Sets character at the desired position
 	//This immediately sets the contentBuffer to the new value
+	//If no color is specified, default color will be set.
 	void setCharacter(int row, int col, int newChar);
 
 	void setCharacter(int row, int col, int newChar, int color);
+
+	//Sets color at the desired position
+	void setColor(int row, int col, int color);
 
 	//Gets character at the desired position. Returns the character without any color modifiers
 	int getCharacter(int row, int col);
