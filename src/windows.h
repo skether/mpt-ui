@@ -1,5 +1,5 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#ifndef WINDOWS_H
+#define WINDOWS_H
 
 #include <vector>
 #include <list>

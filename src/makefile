@@ -4,7 +4,7 @@ CXXFLAGS = -Wall
 OUTNAME = mpt-ui
 
 
-all: main.o color.o window.o
+all: main.o color.o windows.o controls.o
 	$(CXX) $(CFLAGS) -o $(OUTNAME) $^ -lncurses
 	./mpt-ui
 

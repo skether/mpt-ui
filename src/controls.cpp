@@ -1,6 +1,6 @@
 #include <ncurses.h>
 
-#include "control.h"
+#include "controls.h"
 
 Control::Control(int argHeight, int argWidth, int argPosRow, int argPosCol)
 {
@@ -9,7 +9,7 @@ Control::Control(int argHeight, int argWidth, int argPosRow, int argPosCol)
 	posRow = argPosRow;
 	posCol = argPosCol;
 
-	color = COLORPAIR(0);
+	color = COLOR_PAIR(0);
 
 	contentBuffer.reserve(height * width);
 	contentBuffer.resize(height * width, 32);
