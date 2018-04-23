@@ -1,70 +1,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <list>
 
-#include <unistd.h>
 #include <ncurses.h>
 
 #include "color.h"
-
-//Base class for window objects
-class Window
-{
-public:
-	int height;												//Height of the window in rows
-	int width;												//Width of the window in rows
-	int posRow;												//Sets which row the window's upper left corner is.
-	int posCol;												//Sets which column the window's upper left corner is.
-	int posDepth;											//Sets the z-depth of the window
-	std::vector<int> contentBuffer;							//Stores the character information of the window
-
-	//Base Constructor for the object
-	Window(int argHeight, int argWidth, int argPosRow, int argPosCol, int argPosDepth)
-	{
-		height = argHeight;
-		width = argWidth;
-		posRow = argPosRow;
-		posCol = argPosCol;
-		posDepth = argPosDepth;
-
-		contentBuffer.reserve(height * width);
-		contentBuffer.resize(height * width, 32);
-	}
-
-	//Destructor for the object
-	~Window(){
-		//TODO: Check out how to destruct objects
-	}
-
-	//Sets character at the desired position
-	//This immediately sets the contentBuffer to the new value
-	void setCharacter(int row, int col, int newChar) { contentBuffer[row * width + col] = newChar; }
-
-	//Gets character at the desired position
-	int getCharacter(int row, int col) { return contentBuffer[row * width + col]; }
-
-	//Adds border to the window
-	//This immediately sets the contentBuffer to the new values
-	void setBorder()
-	{
-		for (int i = 1; i < height-1; ++i)					//Setting Vertical borders
-		{
-			setCharacter(i, 0, ACS_VLINE);
-			setCharacter(i, width-1, ACS_VLINE);
-		}
-
-		for (int i = 1; i < width-1; ++i)					//Setting Horizontal borders
-		{
-			setCharacter(0, i, ACS_HLINE);
-			setCharacter(height-1, i, ACS_HLINE);
-		}
-
-		setCharacter(0, 0, ACS_ULCORNER);					//Setting upper left corner
-		setCharacter(0, width-1, ACS_URCORNER);				//Setting upper right corner
-		setCharacter(height-1, 0, ACS_LLCORNER);			//Setting lower left corner
-		setCharacter(height-1, width-1, ACS_LRCORNER);		//Setting lower right corner
-	}
-};
+#include "windows.h"
 
 //Temporary method for printing windows (doesn't respect z-depth)
 void printWindow(Window win)
@@ -111,7 +53,7 @@ int main()
 	//* DEBUG CODE *//
 	//**************//
 
-	wattron(stdscr, COLOR_PAIR(P_BGW));
+	/*wattron(stdscr, COLOR_PAIR(P_BGW));
 	move(0, 0);
 	wprintw(stdscr, "BGWINDOW\t\t%d", COLOR_PAIR(P_BGW));
 
@@ -125,11 +67,26 @@ int main()
 
 	wattron(stdscr, COLOR_PAIR(P_FGWH));
 	move(3, 0);
-	wprintw(stdscr, "FGWINDOWHIGHLIGHT\t%d", COLOR_PAIR(P_FGWH));
+	wprintw(stdscr, "FGWINDOWHIGHLIGHT\t%d", COLOR_PAIR(P_FGWH));*/
 
-	Window testWindow(20, 50, 2, 15, 0);
-	testWindow.setBorder();
-	printWindow(testWindow);
+	std::list<Window*> windowList;
+
+	Window testWin1(LINES, COLS*.2, 0, 0);
+	testWin1.setDefaultColor(COLOR_PAIR(P_FGW));
+	testWin1.setBorder();
+	windowList.push_back(&testWin1);
+
+	Window testWin2(LINES, COLS*.2, 0, COLS*.2);
+	testWin2.setDefaultColor(COLOR_PAIR(P_BGW));
+	testWin2.setBorder();
+	windowList.push_back(&testWin2);
+
+	Window testWin3(LINES, COLS-COLS*.4, 0, COLS*.4);
+	testWin3.setDefaultColor(COLOR_PAIR(P_BGW));
+	testWin3.setBorder();
+	windowList.push_back(&testWin3);
+
+	printWindows(windowList);
 
 
 
@@ -143,6 +100,9 @@ int main()
 		switch(ch)
 		{
 			//case KEY_RESIZE: printWindowSize(stdscr); break;
+			case KEY_F(1): testWin1.setDefaultColor(COLOR_PAIR(P_FGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); printWindows(windowList); break;
+			case KEY_F(2): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_FGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); printWindows(windowList); break;
+			case KEY_F(3): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_FGW)); printWindows(windowList); break;
 			default: break;
 		}
 	}

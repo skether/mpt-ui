@@ -1,10 +1,14 @@
 CC = g++
-FLAGS = -Wall
+CFLAGS = -Wall
+CXXFLAGS = -Wall
+OUTNAME = mpt-ui
 
-all: clean main.cpp color.c color.h
-	clear
-	$(CC) $(FLAGS) -o mpt-ui main.cpp color.c -lncurses
+
+all: main.o color.o windows.o controls.o
+	$(CXX) $(CFLAGS) -o $(OUTNAME) $^ -lncurses
 	./mpt-ui
 
+.PHONY: clean
 clean:
-	rm -f *.o mpt-ui
+	clear
+	rm -f *.o $(OUTNAME)
