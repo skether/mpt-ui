@@ -35,6 +35,7 @@ int main()
 	cbreak();												//Disable buffering of typed characters
 	noecho();												//Disable automatic echoing of typed characters
 	keypad(stdscr, true);									//Enable capturing of special keys
+	curs_set(0);											//Hide the cursor
 
 	//Check if terminal has color support, if not display error the exit the program.
 	//TODO: Right now this projects relies on color support. Black and White only support could be added later.

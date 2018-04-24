@@ -68,6 +68,5 @@ void printWindows(std::list<Window*> windowList)
 			}
 		}
 	}
-	move(LINES-1, COLS-1);
 	refresh();
 }
