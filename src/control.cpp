@@ -3,7 +3,23 @@
 #include "control.h"
 
 //Base class for control objects.
-Control::Control(int argHeight, int argWidth, int argPosRow, int argPosCol)
+Control::Control(int argWidth, int argHeight, int argPosRow, int argPosCol)
+{
+	width = argWidth;
+	height = argHeight;
+	posRow = argPosRow;
+	posCol = argPosCol;
+
+	defaultColor = COLOR_PAIR(0);
+
+	contentBuffer.reserve(height * width);
+	contentBuffer.resize(height * width, 32);
+
+	contentColorBuffer.reserve(height * width);
+	contentColorBuffer.resize(height * width, defaultColor);
+}
+
+Control::Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, Control* parent)
 {
 	width = argWidth;
 	height = argHeight;

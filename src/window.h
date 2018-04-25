@@ -12,8 +12,8 @@ class Window : public Control
 public:
 	std::list<Control*> windowControls;
 
-	//Base Constructor for the object.
-	Window(int argHeight, int argWidth, int argPosRow, int argPosCol);
+	//Base Constructors for the object.
+	Window(int argWidth, int argHeight, int argPosRow, int argPosCol);
 
 	//Adds border to the window
 	//This immediately sets the contentBuffer to the new values

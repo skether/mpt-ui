@@ -7,8 +7,8 @@
 //* Window class *//
 //****************//
 
-//Base Constructor for the object
-Window::Window(int argHeight, int argWidth, int argPosRow, int argPosCol) : Control(argHeight, argWidth, argPosRow, argPosCol) {}
+//Base Constructors for the object
+Window::Window(int argWidth, int argHeight, int argPosRow, int argPosCol) : Control(argWidth, argHeight, argPosRow, argPosCol) {}
 
 //Adds border to the window
 //This immediately sets the contentBuffer to the new values

@@ -51,9 +51,9 @@ int main()
 
 
 
-	//**************//
-	//* DEBUG CODE *//
-	//**************//
+	//********************//
+	//* DEBUG SETUP CODE *//
+	//********************//
 
 	/*wattron(stdscr, COLOR_PAIR(P_BGW));
 	move(0, 0);
@@ -73,17 +73,17 @@ int main()
 
 	std::list<Window*> windowList;
 
-	Window testWin1(LINES, COLS*.2, 0, 0);
+	Window testWin1(COLS*.2, LINES, 0, 0);
 	testWin1.setDefaultColor(COLOR_PAIR(P_FGW));
 	testWin1.setBorder();
 	windowList.push_back(&testWin1);
 
-	Window testWin2(LINES, COLS*.2, 0, COLS*.2);
+	Window testWin2(COLS*.2, LINES, 0, COLS*.2);
 	testWin2.setDefaultColor(COLOR_PAIR(P_BGW));
 	testWin2.setBorder();
 	windowList.push_back(&testWin2);
 
-	Window testWin3(LINES, COLS-COLS*.4, 0, COLS*.4);
+	Window testWin3(COLS-COLS*.4, LINES, 0, COLS*.4);
 	testWin3.setDefaultColor(COLOR_PAIR(P_BGW));
 	testWin3.setBorder();
 	windowList.push_back(&testWin3);
@@ -116,5 +116,16 @@ int main()
 	//************//
 
 	endwin();
+
+	//******************//
+	//* DEBUG END CODE *//
+	//******************//
+
+	
+
+	//************//
+	//* END CODE *//
+	//************//
+
 	std::exit(0);
 }
