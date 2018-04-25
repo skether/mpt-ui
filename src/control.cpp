@@ -1,6 +1,6 @@
 #include <ncurses.h>
 
-#include "controls.h"
+#include "control.h"
 
 //Base class for control objects.
 Control::Control(int argHeight, int argWidth, int argPosRow, int argPosCol)

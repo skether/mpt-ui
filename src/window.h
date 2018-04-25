@@ -1,10 +1,10 @@
-#ifndef WINDOWS_H
-#define WINDOWS_H
+#ifndef WINDOW_H
+#define WINDOW_H
 
 #include <vector>
 #include <list>
 
-#include "controls.h"
+#include "control.h"
 
 //Base class for window objects
 class Window : public Control

@@ -1,4 +1,4 @@
-#include "windows.h"
+#include "window.h"
 #include "color.h"
 
 #include <ncurses.h>

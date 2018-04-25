@@ -6,8 +6,8 @@
 #include <ncurses.h>
 
 #include "color.h"
-#include "controls.h"
-#include "windows.h"
+#include "control.h"
+#include "window.h"
 
 //Temporary method for printing windows (doesn't respect z-depth)
 void printWindow(Window win)
