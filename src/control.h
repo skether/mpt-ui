@@ -15,15 +15,21 @@ public:
 	double posRowDyn;										//True if the control's vertical position is automatically calculated to its parent. If dynamic its a double value between 0 and 1, that specifies the percantage of the parents height.
 	int posCol;												//Sets which column the control's upper left corner is.
 	double posColDyn;										//True if the control's horizontal position is automatically calculated to its parent. If dynamic its a double value between 0 and 1, that specifies the percantage of the parents width.
+
 	std::vector<int> contentBuffer;							//Stores the character information of the control.
 	std::vector<int> contentColorBuffer;					//Stores the color information of the control.
 
+	Control *parent;										//Points to the control's parent
+
 	//Base Constructors for the object.
 	//Control has no dynamic sizing properties.
-	Control(int argWidth, int argHeight, int argPosRow, int argPosCol);
+	Control(int argWidth, int argHeight, int argPosRow, int argPosCol, Control *argParent);
 
 	//Control has at least one dynamic sizing property.
-	Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, Control *parent);
+	Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, Control *argParent);
+
+	//Constructor for WindowHost objects
+	Control(int argWidth, int argHeight, int argPosRow, int argPosCol);
 
 	//Gets character at the desired position. Returns the character without any color modifiers.
 	int getCharacter(int row, int col);

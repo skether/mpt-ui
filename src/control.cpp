@@ -2,13 +2,18 @@
 
 #include "control.h"
 
-//Base class for control objects.
-Control::Control(int argWidth, int argHeight, int argPosRow, int argPosCol)
+//Base Constructors for the object.
+//Control has no dynamic sizing properties.
+Control::Control(int argWidth, int argHeight, int argPosRow, int argPosCol, Control *argParent) : Control(argWidth, argHeight, argPosRow, argPosCol, false, false, false, false, argParent) {}
+
+//Control has at least one dynamic sizing property.
+Control::Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, Control* argParent)
 {
-	width = argWidth;
-	height = argHeight;
-	posRow = argPosRow;
-	posCol = argPosCol;
+	if(argWidthDyn){width = argWidth < 0 ? argParent->width+argWidth : argParent->width*argWidth; }
+	if(argHeightDyn){height = argHeight < 0 ? argParent->height+argHeight : argParent->height*argHeight; }
+
+	if(argPosRowDyn){posRow = argPosRow < 0 ? argParent->posRow+argPosRow : argParent->posRow*argPosRow; }
+	if(argPosColDyn){posCol = argPosCol < 0 ? argParent->posCol+argPosCol : argParent->posCol*argPosCol; }
 
 	defaultColor = COLOR_PAIR(0);
 
@@ -19,12 +24,15 @@ Control::Control(int argWidth, int argHeight, int argPosRow, int argPosCol)
 	contentColorBuffer.resize(height * width, defaultColor);
 }
 
-Control::Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, Control* parent)
+//Constructor for WindowHost objects
+Control::Control(int argWidth, int argHeight, int argPosRow, int argPosCol)
 {
 	width = argWidth;
 	height = argHeight;
 	posRow = argPosRow;
 	posCol = argPosCol;
+
+	parent = NULL;
 
 	defaultColor = COLOR_PAIR(0);
 

@@ -9,21 +9,6 @@
 #include "control.h"
 #include "window.h"
 
-//Temporary method for printing windows (doesn't respect z-depth)
-void printWindow(Window win)
-{
-	erase();
-	for (int cRow = 0; cRow < win.height; ++cRow)
-	{
-		move(win.posRow+cRow, win.posCol);
-		for (int cCol = 0; cCol < win.width; ++cCol)
-		{
-			addch(win.getCharacter(cRow, cCol));
-		}
-	}
-	refresh();
-}
-
 //The programs main entry point
 int main()
 {
@@ -49,48 +34,28 @@ int main()
 	start_color();											//Initializing ncurses colors
 	setupColorPairs();										//Setting up the color pairs. Implemented in color.c
 
-
-
 	//********************//
 	//* DEBUG SETUP CODE *//
 	//********************//
 
-	/*wattron(stdscr, COLOR_PAIR(P_BGW));
-	move(0, 0);
-	wprintw(stdscr, "BGWINDOW\t\t%d", COLOR_PAIR(P_BGW));
+	WindowHost winHost(COLS, LINES, 0, 0, stdscr);
 
-	wattron(stdscr, COLOR_PAIR(P_BGWH));
-	move(1, 0);
-	wprintw(stdscr, "BGWINDOWHIGHLIGHT\t%d", COLOR_PAIR(P_BGWH));
-
-	wattron(stdscr, COLOR_PAIR(P_FGW));
-	move(2, 0);
-	wprintw(stdscr, "FGWINDOW\t\t%d", COLOR_PAIR(P_FGW));
-
-	wattron(stdscr, COLOR_PAIR(P_FGWH));
-	move(3, 0);
-	wprintw(stdscr, "FGWINDOWHIGHLIGHT\t%d", COLOR_PAIR(P_FGWH));*/
-
-	std::list<Window*> windowList;
-
-	Window testWin1(COLS*.2, LINES, 0, 0);
+	Window testWin1(COLS*.2, LINES, 0, 0, &winHost);
 	testWin1.setDefaultColor(COLOR_PAIR(P_FGW));
 	testWin1.setBorder();
-	windowList.push_back(&testWin1);
+	winHost.addWindow(&testWin1);
 
-	Window testWin2(COLS*.2, LINES, 0, COLS*.2);
+	Window testWin2(COLS*.2, LINES, 0, COLS*.2, &winHost);
 	testWin2.setDefaultColor(COLOR_PAIR(P_BGW));
 	testWin2.setBorder();
-	windowList.push_back(&testWin2);
+	winHost.addWindow(&testWin2);
 
-	Window testWin3(COLS-COLS*.4, LINES, 0, COLS*.4);
+	Window testWin3(COLS-((COLS*.2)*2), LINES, 0, ((COLS*.2)*2), &winHost);
 	testWin3.setDefaultColor(COLOR_PAIR(P_BGW));
 	testWin3.setBorder();
-	windowList.push_back(&testWin3);
+	winHost.addWindow(&testWin3);
 
-	printWindows(windowList);
-
-
+	winHost.printWindows();
 
 	//*********************//
 	//* Main control loop *//
@@ -102,9 +67,9 @@ int main()
 		switch(ch)
 		{
 			//case KEY_RESIZE: printWindowSize(stdscr); break;
-			case KEY_F(1): testWin1.setDefaultColor(COLOR_PAIR(P_FGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); printWindows(windowList); break;
-			case KEY_F(2): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_FGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); printWindows(windowList); break;
-			case KEY_F(3): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_FGW)); printWindows(windowList); break;
+			case KEY_F(1): testWin1.setDefaultColor(COLOR_PAIR(P_FGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.printWindows(); break;
+			case KEY_F(2): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_FGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.printWindows(); break;
+			case KEY_F(3): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_FGW)); winHost.printWindows(); break;
 			default: break;
 		}
 	}

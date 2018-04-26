@@ -1,14 +1,12 @@
 #include "window.h"
 #include "color.h"
 
-#include <ncurses.h>
-
 //****************//
 //* Window class *//
 //****************//
 
 //Base Constructors for the object
-Window::Window(int argWidth, int argHeight, int argPosRow, int argPosCol) : Control(argWidth, argHeight, argPosRow, argPosCol) {}
+Window::Window(int argWidth, int argHeight, int argPosRow, int argPosCol, Control *argParent) : Control(argWidth, argHeight, argPosRow, argPosCol, argParent) {}
 
 //Adds border to the window
 //This immediately sets the contentBuffer to the new values
@@ -53,20 +51,36 @@ void Window::update()
 	}
 }
 
-//Prints all windows in the windowList list to the standard screen.
-void printWindows(std::list<Window*> windowList)
+//********************//
+//* WindowHost class *//
+//********************//
+
+//Base Constructor for the object
+WindowHost::WindowHost(int argWidth, int argHeight, int argPosRow, int argPosCol, WINDOW* argWin) : Control(argWidth, argHeight, argPosRow, argPosCol)
 {
-	erase();
+	win = argWin;
+}
+
+//Adds windows to the list
+void WindowHost::addWindow(Window* argWin)
+{
+	windowList.push_back(argWin);
+}
+
+//Prints all windows in the windowList list to the standard screen.
+void WindowHost::printWindows()
+{
+	werase(win);
 	for(std::list<Window*>::iterator it = windowList.begin(); it != windowList.end(); ++it)
 	{
 		for (int cRow = 0; cRow < (*(*it)).height; ++cRow)
 		{
-			move((*(*it)).posRow+cRow, (*(*it)).posCol);
+			wmove(win, (*(*it)).posRow+cRow, (*(*it)).posCol);
 			for (int cCol = 0; cCol < (*(*it)).width; ++cCol)
 			{
-				addch((*(*it)).getCharacterWithColor(cRow, cCol));
+				waddch(win, (*(*it)).getCharacterWithColor(cRow, cCol));
 			}
 		}
 	}
-	refresh();
+	wrefresh(win);
 }
