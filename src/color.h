@@ -3,8 +3,8 @@
 
 #define CN_BGWBG 18
 #define CC_BGWBG 0, 0, 529
-#define CN_BGWBGH 19
-#define CC_BGWBGH 0, 0, 686
+#define CN_BGWBGH 21
+#define CC_BGWBGH 0, 0, 1000
 #define CN_FGWBG 26
 #define CC_FGWBG 0, 372, 843
 #define CN_FGWBGH 74
