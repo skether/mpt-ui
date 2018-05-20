@@ -12,6 +12,20 @@ Window::Window(int argWidth, int argHeight, int argPosRow, int argPosCol) : Cont
 //Control has at least one dynamic sizing property.
 Window::Window(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, int parWidth, int parHeight) : Control(argWidth, argHeight, argPosRow, argPosCol, argWidthDyn, argHeightDyn, argPosRowDyn, argPosColDyn, parWidth, parHeight) {}
 
+//Resizes the control
+void Window::resize(int parWidth, int parHeight){
+	Control::resize(parWidth, parHeight);
+
+	for(std::list<Control*>::iterator it = windowControls.begin(); it != windowControls.end(); ++it)
+	{
+		(*(*it)).resize(width, height);
+	}
+
+	setBorder();
+
+	update();
+}
+
 //Adds border to the window
 //This immediately sets the contentBuffer to the new values
 void Window::setBorder()
@@ -65,6 +79,21 @@ WindowHost::WindowHost(int argWidth, int argHeight, int argPosRow, int argPosCol
 	win = argWin;
 }
 
+//Resizes the control
+void WindowHost::resize(int newWidth, int newHeight){
+	width = newWidth;
+	height = newHeight;
+
+	Control::resize(0, 0);
+
+	for(std::list<Window*>::iterator it = windowList.begin(); it != windowList.end(); ++it)
+	{
+		(*(*it)).resize(width, height);
+	}
+
+	printWindows();
+}
+
 //Adds windows to the list
 void WindowHost::addWindow(Window* argWin)
 {
@@ -75,6 +104,7 @@ void WindowHost::addWindow(Window* argWin)
 void WindowHost::printWindows()
 {
 	werase(win);
+	wrefresh(win);
 	for(std::list<Window*>::iterator it = windowList.begin(); it != windowList.end(); ++it)
 	{
 		for (int cRow = 0; cRow < (*(*it)).height; ++cRow)

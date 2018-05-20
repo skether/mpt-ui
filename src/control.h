@@ -26,6 +26,9 @@ public:
 	//Control has at least one dynamic sizing property.
 	Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, int parWidth, int parHeight);
 
+	//Resizes the control
+	void resize(int parWidth, int parHeight);
+
 	//Gets character at the desired position. Returns the character without any color modifiers.
 	int getCharacter(int row, int col);
 

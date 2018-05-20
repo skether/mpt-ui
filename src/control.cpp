@@ -4,27 +4,42 @@
 
 //Base Constructors for the object.
 //Control has no dynamic sizing properties.
-Control::Control(int argWidth, int argHeight, int argPosRow, int argPosCol) : Control(argWidth, argHeight, argPosRow, argPosCol, false, false, false, false, NULL, NULL) {}
+Control::Control(int argWidth, int argHeight, int argPosRow, int argPosCol) : Control(argWidth, argHeight, argPosRow, argPosCol, false, false, false, false, 0, 0) {}
 
 //Control has at least one dynamic sizing property.
 Control::Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, int parWidth, int parHeight)
 {
 
-	if(argWidthDyn){width = argWidth < 0 ? parWidth+argWidth : parWidth*argWidth; } else {width = argWidth; }
-	if(argHeightDyn){height = argHeight < 0 ? parHeight+argHeight : parHeight*argHeight; } else {height = argHeight; }
+	if(argWidthDyn){ widthDyn = argWidth; } else { width = argWidth; widthDyn = 0; }
+	if(argHeightDyn){ heightDyn = argHeight; } else { height = argHeight; heightDyn = 0; }
 
-	if(argPosRowDyn){posRow = argPosRow < 0 ? argPosRow : parHeight*argPosRow; } else {posRow = argPosRow; }
-	if(argPosColDyn){posCol = argPosCol < 0 ? argPosCol : parWidth*argPosCol; } else {posCol = argPosCol; }
+	if(argPosRowDyn){ posRowDyn = argPosRow; } else { posRow = argPosRow; posRowDyn = 0; }
+	if(argPosColDyn){ posColDyn = argPosCol; } else { posCol = argPosCol; posColDyn = 0; }
 
 	defaultColor = COLOR_PAIR(0);
 
-	contentBuffer.reserve(height * width);
+	resize(parWidth, parHeight);
+}
+
+//Resizes the control
+void Control::resize(int parWidth, int parHeight)
+{
+	if(widthDyn != 0) { width = widthDyn < 0 ? parWidth+widthDyn : parWidth*widthDyn; }
+	if(heightDyn != 0) { height = heightDyn < 0 ? parHeight+heightDyn : parHeight*heightDyn; }
+
+	if(posRowDyn != 0) { posRow = posRowDyn < 0 ? posRowDyn : parHeight*posRowDyn; }
+	if(posColDyn != 0) { posCol = posColDyn < 0 ? posColDyn : parWidth*posColDyn; }
+
+	///TODO: Might need to null out buffers
+	if(contentBuffer.capacity() < (height * width)) { contentBuffer.reserve(height * width * 4); }
+	contentBuffer.clear();
 	contentBuffer.resize(height * width, 32);
 
-	contentColorBuffer.reserve(height * width);
+	if(contentColorBuffer.capacity() < (height * width)) { contentColorBuffer.reserve(height * width * 4); }
+	contentColorBuffer.clear();
 	contentColorBuffer.resize(height * width, defaultColor);
 
-	printf("Control::Control End\n");
+	///TODO: Redraw the control
 }
 
 //Gets character at the desired position. Returns the character without any color modifiers.

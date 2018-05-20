@@ -20,6 +20,9 @@ public:
 	//Control has at least one dynamic sizing property.
 	Window(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, int parWidth, int parHeight);
 
+	//Resizes the control
+	void resize(int parWidth, int parHeight);
+
 	//Adds border to the window
 	//This immediately sets the contentBuffer to the new values
 	void setBorder();
@@ -40,6 +43,9 @@ public:
 
 	//Base Constructor for the object
 	WindowHost(int argWidth, int argHeight, int argPosRow, int argPosCol, WINDOW* argWin);
+
+	//Resizes the control
+	void resize(int parWidth, int parHeight);
 
 	//Adds windows to the list
 	void addWindow(Window* argWin);

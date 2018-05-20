@@ -66,10 +66,13 @@ int main()
 	{
 		switch(ch)
 		{
-			//case KEY_RESIZE: printWindowSize(stdscr); break;
+			case KEY_RESIZE: winHost.resize(COLS, LINES); break;
 			case KEY_F(1): testWin1.setDefaultColor(COLOR_PAIR(P_FGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.printWindows(); break;
 			case KEY_F(2): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_FGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.printWindows(); break;
 			case KEY_F(3): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_FGW)); winHost.printWindows(); break;
+			case KEY_F(5): winHost.printWindows(); break;
+			case KEY_F(6): winHost.resize(COLS/2, LINES/2); break;
+			case KEY_F(7): winHost.resize(COLS, LINES); break;
 			default: break;
 		}
 	}
