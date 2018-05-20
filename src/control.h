@@ -19,17 +19,12 @@ public:
 	std::vector<int> contentBuffer;							//Stores the character information of the control.
 	std::vector<int> contentColorBuffer;					//Stores the color information of the control.
 
-	Control *parent;										//Points to the control's parent
-
 	//Base Constructors for the object.
 	//Control has no dynamic sizing properties.
-	Control(int argWidth, int argHeight, int argPosRow, int argPosCol, Control *argParent);
+	Control(int argWidth, int argHeight, int argPosRow, int argPosCol);
 
 	//Control has at least one dynamic sizing property.
-	Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, Control *argParent);
-
-	//Constructor for WindowHost objects
-	Control(int argWidth, int argHeight, int argPosRow, int argPosCol);
+	Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, int parWidth, int parHeight);
 
 	//Gets character at the desired position. Returns the character without any color modifiers.
 	int getCharacter(int row, int col);

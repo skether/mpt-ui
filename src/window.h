@@ -14,7 +14,11 @@ public:
 	std::list<Control*> windowControls;
 
 	//Base Constructors for the object.
-	Window(int argWidth, int argHeight, int argPosRow, int argPosCol, Control *argParent);
+	//Control has no dynamic sizing properties.
+	Window(int argWidth, int argHeight, int argPosRow, int argPosCol);
+
+	//Control has at least one dynamic sizing property.
+	Window(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, int parWidth, int parHeight);
 
 	//Adds border to the window
 	//This immediately sets the contentBuffer to the new values

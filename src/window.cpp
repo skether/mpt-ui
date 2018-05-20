@@ -6,7 +6,11 @@
 //****************//
 
 //Base Constructors for the object
-Window::Window(int argWidth, int argHeight, int argPosRow, int argPosCol, Control *argParent) : Control(argWidth, argHeight, argPosRow, argPosCol, argParent) {}
+//Control has no dynamic sizing properties.
+Window::Window(int argWidth, int argHeight, int argPosRow, int argPosCol) : Control(argWidth, argHeight, argPosRow, argPosCol) {}
+
+//Control has at least one dynamic sizing property.
+Window::Window(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, int parWidth, int parHeight) : Control(argWidth, argHeight, argPosRow, argPosCol, argWidthDyn, argHeightDyn, argPosRowDyn, argPosColDyn, parWidth, parHeight) {}
 
 //Adds border to the window
 //This immediately sets the contentBuffer to the new values

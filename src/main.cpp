@@ -40,17 +40,17 @@ int main()
 
 	WindowHost winHost(COLS, LINES, 0, 0, stdscr);
 
-	Window testWin1(COLS*.2, LINES, 0, 0, &winHost);
+	Window testWin1(.2, 1, 0, 0, true, true, false, true, winHost.width, winHost.height);
 	testWin1.setDefaultColor(COLOR_PAIR(P_FGW));
 	testWin1.setBorder();
 	winHost.addWindow(&testWin1);
 
-	Window testWin2(COLS*.2, LINES, 0, COLS*.2, &winHost);
+	Window testWin2(.2, 1, 0, .2, true, true, false, true, winHost.width, winHost.height);
 	testWin2.setDefaultColor(COLOR_PAIR(P_BGW));
 	testWin2.setBorder();
 	winHost.addWindow(&testWin2);
 
-	Window testWin3(COLS-((COLS*.2)*2), LINES, 0, ((COLS*.2)*2), &winHost);
+	Window testWin3(.6, 1, 0, .4, true, true, false, true, winHost.width, winHost.height);
 	testWin3.setDefaultColor(COLOR_PAIR(P_BGW));
 	testWin3.setBorder();
 	winHost.addWindow(&testWin3);
