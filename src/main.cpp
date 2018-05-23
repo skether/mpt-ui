@@ -38,24 +38,28 @@ int main()
 	//* DEBUG SETUP CODE *//
 	//********************//
 
-	WindowHost winHost(COLS, LINES, 0, 0, stdscr);
+	DefaultWindowHost winHost(COLS, LINES, 0, 0, stdscr);
 
-	Window testWin1(.2, 1, 0, 0, true, true, false, true, winHost.width, winHost.height);
+	TunnelWindow testWin1(.2, 1, 0, 0, true, true, false, true);
 	testWin1.setDefaultColor(COLOR_PAIR(P_FGW));
-	testWin1.setBorder();
 	winHost.addWindow(&testWin1);
 
-	Window testWin2(.2, .5, 0, .2, true, true, false, true, winHost.width, winHost.height);
+	TunnelWindow testWin2(.2, .5, 0, .2, true, true, false, true);
 	testWin2.setDefaultColor(COLOR_PAIR(P_BGW));
-	testWin2.setBorder();
 	winHost.addWindow(&testWin2);
 
-	Window testWin3(.6, 1, 0, .4, true, true, false, true, winHost.width, winHost.height);
+	TunnelWindow testWin3(.6, 1, 0, .4, true, true, false, true);
 	testWin3.setDefaultColor(COLOR_PAIR(P_BGW));
-	testWin3.setBorder();
 	winHost.addWindow(&testWin3);
 
-	winHost.printWindows();
+	winHost.resizeWindowHost(COLS, LINES);
+
+	/*testWin1.setBorder();
+	testWin2.setBorder();
+	testWin3.setBorder();*/
+
+
+	//winHost.printWindows();
 
 	//*********************//
 	//* Main control loop *//
@@ -66,13 +70,13 @@ int main()
 	{
 		switch(ch)
 		{
-			case KEY_RESIZE: winHost.resize(COLS, LINES); break;
+			case KEY_RESIZE: winHost.resizeWindowHost(COLS, LINES); break;
 			case KEY_F(1): testWin1.setDefaultColor(COLOR_PAIR(P_FGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.printWindows(); break;
 			case KEY_F(2): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_FGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.printWindows(); break;
 			case KEY_F(3): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_FGW)); winHost.printWindows(); break;
 			case KEY_F(5): winHost.printWindows(); break;
-			case KEY_F(6): winHost.resize(COLS/2, LINES/2); break;
-			case KEY_F(7): winHost.resize(COLS, LINES); break;
+			case KEY_F(6): winHost.resizeWindowHost(COLS/2, LINES/2); break;
+			case KEY_F(7): winHost.resizeWindowHost(COLS, LINES); break;
 			default: break;
 		}
 	}

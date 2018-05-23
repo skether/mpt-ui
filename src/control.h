@@ -24,10 +24,10 @@ public:
 	Control(int argWidth, int argHeight, int argPosRow, int argPosCol);
 
 	//Control has at least one dynamic sizing property.
-	Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, int parWidth, int parHeight);
+	Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn);
 
 	//Resizes the control
-	void resize(int parWidth, int parHeight);
+	void resizeControl(int argWidth, int argHeight, int argPosRow, int argPosCol);
 
 	//Gets character at the desired position. Returns the character without any color modifiers.
 	int getCharacter(int row, int col);

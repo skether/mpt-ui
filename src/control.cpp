@@ -4,10 +4,10 @@
 
 //Base Constructors for the object.
 //Control has no dynamic sizing properties.
-Control::Control(int argWidth, int argHeight, int argPosRow, int argPosCol) : Control(argWidth, argHeight, argPosRow, argPosCol, false, false, false, false, 0, 0) {}
+Control::Control(int argWidth, int argHeight, int argPosRow, int argPosCol) : Control(argWidth, argHeight, argPosRow, argPosCol, false, false, false, false) {}
 
 //Control has at least one dynamic sizing property.
-Control::Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, int parWidth, int parHeight)
+Control::Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn)
 {
 
 	if(argWidthDyn){ widthDyn = argWidth; } else { width = argWidth; widthDyn = 0; }
@@ -17,20 +17,16 @@ Control::Control(double argWidth, double argHeight, double argPosRow, double arg
 	if(argPosColDyn){ posColDyn = argPosCol; } else { posCol = argPosCol; posColDyn = 0; }
 
 	defaultColor = COLOR_PAIR(0);
-
-	resize(parWidth, parHeight);
 }
 
 //Resizes the control
-void Control::resize(int parWidth, int parHeight)
+void Control::resizeControl(int argWidth, int argHeight, int argPosRow, int argPosCol)
 {
-	if(widthDyn != 0) { width = widthDyn < 0 ? parWidth+widthDyn : parWidth*widthDyn; }
-	if(heightDyn != 0) { height = heightDyn < 0 ? parHeight+heightDyn : parHeight*heightDyn; }
+	width = argWidth;
+	height = argHeight;
+	posRow = argPosRow;
+	posCol = argPosCol;
 
-	if(posRowDyn != 0) { posRow = posRowDyn < 0 ? posRowDyn : parHeight*posRowDyn; }
-	if(posColDyn != 0) { posCol = posColDyn < 0 ? posColDyn : parWidth*posColDyn; }
-
-	///TODO: Might need to null out buffers
 	if(contentBuffer.capacity() < (height * width)) { contentBuffer.reserve(height * width * 4); }
 	contentBuffer.clear();
 	contentBuffer.resize(height * width, 32);

@@ -18,10 +18,10 @@ public:
 	Window(int argWidth, int argHeight, int argPosRow, int argPosCol);
 
 	//Control has at least one dynamic sizing property.
-	Window(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, int parWidth, int parHeight);
+	Window(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn);
 
 	//Resizes the control
-	void resize(int parWidth, int parHeight);
+	virtual void resizeWindow(int argWidth, int argHeight, int argPosRow, int argPosCol) = 0;
 
 	//Adds border to the window
 	//This immediately sets the contentBuffer to the new values
@@ -32,6 +32,20 @@ public:
 
 	//Calculates contentBuffer based on the controls
 	void update();
+};
+
+class TunnelWindow : public Window
+{
+public:
+
+	//Base Constructors for the object.
+	//Control has no dynamic sizing properties.
+	TunnelWindow(int argWidth, int argHeight, int argPosRow, int argPosCol);
+
+	//Control has at least one dynamic sizing property.
+	TunnelWindow(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn);
+
+	void resizeWindow(int argWidth, int argHeight, int argPosRow, int argPosCol);
 };
 
 //Class for storing windows
@@ -45,7 +59,7 @@ public:
 	WindowHost(int argWidth, int argHeight, int argPosRow, int argPosCol, WINDOW* argWin);
 
 	//Resizes the control
-	void resize(int parWidth, int parHeight);
+	virtual void resizeWindowHost(int argWidth, int argHeight, int argPosRow, int argPosCol) = 0;
 
 	//Adds windows to the list
 	void addWindow(Window* argWin);
@@ -53,6 +67,18 @@ public:
 	//Method for printing windows
 	void printWindows();
 
+};
+
+class DefaultWindowHost : public WindowHost
+{
+public:
+
+	//Base Constructor for the object
+	DefaultWindowHost(int argWidth, int argHeight, int argPosRow, int argPosCol, WINDOW* argWin);
+
+	void resizeWindowHost(int argWidth, int argHeight, int argPosRow, int argPosCol);
+
+	void resizeWindowHost(int argWidth, int argHeight);
 };
 
 #endif
