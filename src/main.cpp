@@ -45,7 +45,7 @@ int main()
 	testWin1.setBorder();
 	winHost.addWindow(&testWin1);
 
-	Window testWin2(.2, 1, 0, .2, true, true, false, true, winHost.width, winHost.height);
+	Window testWin2(.2, .5, 0, .2, true, true, false, true, winHost.width, winHost.height);
 	testWin2.setDefaultColor(COLOR_PAIR(P_BGW));
 	testWin2.setBorder();
 	winHost.addWindow(&testWin2);
@@ -89,7 +89,10 @@ int main()
 	//* DEBUG END CODE *//
 	//******************//
 
-	
+	printf("winHost:  %dx%d at %dx%d\n", winHost.width, winHost.height, winHost.posRow, winHost.posCol);
+	printf("testWin1: %dx%d at %dx%d\n", testWin1.width, testWin1.height, testWin1.posRow, testWin1.posCol);
+	printf("testWin2: %dx%d at %dx%d\n", testWin2.width, testWin2.height, testWin2.posRow, testWin2.posCol);
+	printf("testWin3: %dx%d at %dx%d\n", testWin3.width, testWin3.height, testWin3.posRow, testWin3.posCol);
 
 	//************//
 	//* END CODE *//
