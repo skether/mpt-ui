@@ -13,8 +13,8 @@ Control::Control(double argWidth, double argHeight, double argPosRow, double arg
 	if(argWidthDyn){ widthDyn = argWidth; } else { width = argWidth; widthDyn = 0; }
 	if(argHeightDyn){ heightDyn = argHeight; } else { height = argHeight; heightDyn = 0; }
 
-	if(argPosRowDyn){ posRowDyn = argPosRow; } else { posRow = argPosRow; posRowDyn = 0; }
-	if(argPosColDyn){ posColDyn = argPosCol; } else { posCol = argPosCol; posColDyn = 0; }
+	if(argPosRowDyn){ posRowDyn = argPosRow; posRow = 0; } else { posRow = argPosRow; posRowDyn = 0; }
+	if(argPosColDyn){ posColDyn = argPosCol; posCol = 0; } else { posCol = argPosCol; posColDyn = 0; }
 
 	defaultColor = COLOR_PAIR(0);
 

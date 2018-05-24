@@ -45,7 +45,7 @@ int main()
 	testWin1.setBorder();
 	winHost.addWindow(&testWin1);
 
-	Window testWin2(.2, .5, 0, .2, true, true, false, true, winHost.width, winHost.height);
+	Window testWin2(.2, 1, 0, .2, true, true, false, true, winHost.width, winHost.height);
 	testWin2.setDefaultColor(COLOR_PAIR(P_BGW));
 	testWin2.setBorder();
 	winHost.addWindow(&testWin2);
