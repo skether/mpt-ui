@@ -52,7 +52,7 @@ public:
 class WindowHost : public Control
 {
 public:
-	std::list<Window*> windowList;
+	std::vector<Window*> windowList;
 	WINDOW *win;
 
 	//Base Constructor for the object

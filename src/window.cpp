@@ -70,6 +70,8 @@ void TunnelWindow::resizeWindow(int argWidth, int argHeight, int argPosRow, int 
 {
 	resizeControl(argWidth, argHeight, argPosRow, argPosCol);
 
+	setBorder();
+
 	//Stuff goes here on how to resize controls
 	//Since controls are not yet implemented nothing is here
 }
@@ -82,6 +84,7 @@ void TunnelWindow::resizeWindow(int argWidth, int argHeight, int argPosRow, int 
 WindowHost::WindowHost(int argWidth, int argHeight, int argPosRow, int argPosCol, WINDOW* argWin) : Control(argWidth, argHeight, argPosRow, argPosCol)
 {
 	win = argWin;
+	windowList.reserve(10);
 }
 
 
@@ -96,7 +99,7 @@ void WindowHost::printWindows()
 {
 	werase(win);
 	wrefresh(win);
-	for(std::list<Window*>::iterator it = windowList.begin(); it != windowList.end(); ++it)
+	for(std::vector<Window*>::iterator it = windowList.begin(); it != windowList.end(); ++it)
 	{
 		for (int cRow = 0; cRow < (*(*it)).height; ++cRow)
 		{
@@ -127,6 +130,11 @@ void DefaultWindowHost::resizeWindowHost(int argWidth, int argHeight, int argPos
 	resizeControl(argWidth, argHeight, argPosRow, argPosCol);
 
 	//Stuff goes here on how to resize windows
+	(*(windowList[0])).resizeWindow(argWidth*.2, argHeight, 0, 0);
+	(*(windowList[1])).resizeWindow(argWidth*.2, argHeight, 0, (*(windowList[0])).width);
+	(*(windowList[2])).resizeWindow(argWidth-((*(windowList[1])).width+(*(windowList[1])).posCol)-1, argHeight, 0, (*(windowList[1])).width+(*(windowList[1])).posCol);
+
+	printWindows();
 }
 
 /*//Resizes the control

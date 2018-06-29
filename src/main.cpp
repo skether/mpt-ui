@@ -54,12 +54,12 @@ int main()
 
 	winHost.resizeWindowHost(COLS, LINES);
 
-	/*testWin1.setBorder();
+	testWin1.setBorder();
 	testWin2.setBorder();
-	testWin3.setBorder();*/
+	testWin3.setBorder();
 
 
-	//winHost.printWindows();
+	winHost.printWindows();
 
 	//*********************//
 	//* Main control loop *//
