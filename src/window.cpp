@@ -41,7 +41,7 @@ void Window::addControl(Control* control)
 }
 
 //Calculates contentBuffer based on the controls.
-void Window::update()
+void Window::draw()
 {
 	for(std::list<Control*>::iterator it = windowControls.begin(); it != windowControls.end(); ++it)
 	{
@@ -95,7 +95,7 @@ void WindowHost::addWindow(Window* argWin)
 }
 
 //Prints all windows in the windowList list to the standard screen.
-void WindowHost::printWindows()
+void WindowHost::draw()
 {
 	werase(win);
 	wrefresh(win);
@@ -134,7 +134,7 @@ void DefaultWindowHost::resizeWindowHost(int argWidth, int argHeight, int argPos
 	(*(windowList[1])).resizeWindow(argWidth*.2, argHeight, 0, (*(windowList[0])).width);
 	(*(windowList[2])).resizeWindow(argWidth-((*(windowList[1])).width+(*(windowList[1])).posCol)-1, argHeight, 0, (*(windowList[1])).width+(*(windowList[1])).posCol);
 
-	printWindows();
+	draw();
 }
 
 /*//Resizes the control
@@ -170,5 +170,5 @@ void WindowHost::resize(int newWidth, int newHeight){
 		(*(*it)).resize(width, height);
 	}
 
-	printWindows();
+	draw();
 }*/

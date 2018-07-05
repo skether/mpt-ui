@@ -51,6 +51,9 @@ public:
 	//Sets the new default color and, refreshes the color buffer.
 	void setDefaultColor(int color);
 
+	//Draws the control to the buffer
+	virtual void draw() = 0;
+
 protected:
 	int defaultColor;										//Default colorPair for the control.
 };

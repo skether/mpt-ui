@@ -58,8 +58,7 @@ int main()
 	testWin2.setBorder();
 	testWin3.setBorder();
 
-
-	winHost.printWindows();
+	winHost.draw();
 
 	//*********************//
 	//* Main control loop *//
@@ -71,10 +70,10 @@ int main()
 		switch(ch)
 		{
 			case KEY_RESIZE: winHost.resizeWindowHost(COLS, LINES); break;
-			case KEY_F(1): testWin1.setDefaultColor(COLOR_PAIR(P_FGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.printWindows(); break;
-			case KEY_F(2): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_FGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.printWindows(); break;
-			case KEY_F(3): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_FGW)); winHost.printWindows(); break;
-			case KEY_F(5): winHost.printWindows(); break;
+			case KEY_F(1): testWin1.setDefaultColor(COLOR_PAIR(P_FGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.draw(); break;
+			case KEY_F(2): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_FGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.draw(); break;
+			case KEY_F(3): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_FGW)); winHost.draw(); break;
+			case KEY_F(5): winHost.draw(); break;
 			case KEY_F(6): winHost.resizeWindowHost(COLS/2, LINES/2); break;
 			case KEY_F(7): winHost.resizeWindowHost(COLS, LINES); break;
 			default: break;

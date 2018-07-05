@@ -31,7 +31,7 @@ public:
 	void addControl(Control* control);
 
 	//Calculates contentBuffer based on the controls
-	void update();
+	void draw();
 };
 
 class TunnelWindow : public Window
@@ -65,7 +65,7 @@ public:
 	void addWindow(Window* argWin);
 
 	//Method for printing windows
-	void printWindows();
+	void draw();
 
 };
 

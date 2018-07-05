@@ -35,7 +35,7 @@ void Control::resizeControl(int argWidth, int argHeight, int argPosRow, int argP
 	contentColorBuffer.clear();
 	contentColorBuffer.resize(height * width, defaultColor);
 
-	///TODO: Redraw the control
+	draw();
 }
 
 //Gets character at the desired position. Returns the character without any color modifiers.
