@@ -58,6 +58,9 @@ int main()
 	testWin2.setBorder();
 	testWin3.setBorder();
 
+	Label testLabel(1, 1, 0, 0, true, false, false, true, "Example text!");
+	testWin1.addControl(&testLabel);
+
 	winHost.draw();
 
 	//*********************//

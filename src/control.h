@@ -2,6 +2,7 @@
 #define CONTROL_H
 
 #include <vector>
+#include <string>
 
 //Base class for control objects.
 class Control
@@ -56,6 +57,33 @@ public:
 
 protected:
 	int defaultColor;										//Default colorPair for the control.
+};
+
+//***************//
+//* Label class *//
+//***************//
+
+class Label : public Control
+{
+public:
+	//Base Constructors for the object.
+	//Control has no dynamic sizing properties.
+	Label(int argWidth, int argHeight, int argPosRow, int argPosCol, std::string argText);
+
+	//Control has at least one dynamic sizing property.
+	Label(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, std::string argText);
+
+	//Returns the current text stored in the label.
+	std::string getText();
+
+	//Sets the current text stored in the label.
+	void setText(std::string value);
+
+	//Draws the control to the buffer
+	void draw();
+
+protected:
+	std::string text;
 };
 
 #endif

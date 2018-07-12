@@ -70,3 +70,47 @@ void Control::setDefaultColor(int argColor)
 		*i = defaultColor;
 	}
 }
+
+//***************//
+//* Label class *//
+//***************//
+
+//Base Constructors for the object.
+//Control has no dynamic sizing properties.
+Label::Label(int argWidth, int argHeight, int argPosRow, int argPosCol, std::string argText) : Control(argWidth, argHeight, argPosRow, argPosCol)
+{
+	text = argText;
+}
+
+//Control has at least one dynamic sizing property.
+Label::Label(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, std::string argText) : Control(argWidth, argHeight, argPosRow, argPosCol, argWidthDyn, argHeightDyn, argPosRowDyn, argPosColDyn)
+{
+	text = argText;
+}
+
+//Returns the current text stored in the label.
+std::string Label::getText() { return text; }
+
+//Sets the current text stored in the label.
+void Label::setText(std::string value) { text = value; }
+
+//Draws the control to the buffer
+void Label::draw()
+{
+	int stringIndex = 0;
+	for(int cRow = 0; cRow < height; cRow++)
+	{
+		for(int cCol = 0; cCol < width; cCol++)
+		{
+			if(stringIndex < text.length())
+			{
+				setCharacter(cRow, cCol, text[stringIndex]);
+				stringIndex++;
+			}
+			else
+			{
+				setCharacter(cRow, cCol, 32);
+			}
+		}
+	}
+}
