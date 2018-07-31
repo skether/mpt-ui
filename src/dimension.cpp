@@ -1,9 +1,13 @@
 #include "dimension.h"
 
-Dimension::Dimension(int argWidth, int argHeight, int argX, int argY)
+Size::Size(int argWidth, int argHeight)
 {
 	width = argWidth;
 	height = argHeight;
+}
+
+Position::Position(int argX, int argY)
+{
 	x = argX;
 	y = argY;
 }

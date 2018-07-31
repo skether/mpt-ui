@@ -1,15 +1,22 @@
 #ifndef DIMENSION_H
 #define DIMENSION_H
 
-class Dimension
+class Size
 {
 public:
 	int height;
 	int width;
+
+	Size(int argWidth, int argHeight);
+};
+
+class Position
+{
+public:
 	int x;
 	int y;
 
-	Dimension(int argWidth, int argHeight, int argX, int argY);
+	Position(int argX, int argY);
 };
 
 #endif
