@@ -6,7 +6,7 @@ OUTNAME = mpt-ui
 all: build
 	./$(OUTNAME)
 
-build: main.o color.o
+build: main.o color.o dimension.o
 	$(CC) $(CXXFLAGS) -o $(OUTNAME) $^ -lncurses
 
 .PHONY: clean
