@@ -3,6 +3,8 @@
 
 #include <ncurses.h>
 
+#include "globalDefine.h"
+
 #include "color.h"
 
 int main()
@@ -38,6 +40,10 @@ int main()
 
 	//Shutdown
 	endwin();
+
+	//Debug Info after shutdown
+#ifdef __DEBUG__
+#endif
 
 	std::exit(0);
 }
