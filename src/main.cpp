@@ -6,6 +6,7 @@
 #include "globalDefine.h"
 
 #include "color.h"
+#include "control.h"
 
 int main()
 {
@@ -43,6 +44,14 @@ int main()
 
 	//Debug Info after shutdown
 #ifdef __DEBUG__
+	Control testControl;
+	testControl.print();
+	testControl.resize(5, 10);
+	testControl.print();
+	testControl.resize(10, 20);
+	testControl.print();
+	testControl.resize(15, 30);
+	testControl.print();
 #endif
 
 	std::exit(0);

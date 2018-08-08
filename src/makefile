@@ -8,7 +8,7 @@ all: build
 	./$(OUTNAME)
 
 .PHONY: build
-build: main.o color.o dimension.o
+build: main.o color.o dimension.o control.o
 	$(CC) $(CXXFLAGS) -o $(OUTNAME) $^ -lncurses
 
 .PHONY: clean
