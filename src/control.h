@@ -47,7 +47,9 @@ public:
 	virtual void draw() = 0;
 
 #ifdef __DEBUG__
-	void print();
+	inline void print() { print(true); }
+
+	void print(bool isFirst);
 #endif
 };
 

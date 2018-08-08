@@ -27,13 +27,13 @@ void Control::resize(int argW, int argH)
 
 #ifdef __DEBUG__
 #include <iostream>
-void Control::print()
+void Control::print(bool isFirst)
 {
-	printf("Control:\n");
-	printf("\tPosition:\tx(%d), y(%d)\n", position.x, position.y);
-	printf("\tSize:\t\tw(%d), h(%d)\n", size.width, size.height);
-	printf("\tCharMap:\tsize(%ld), capacity(%ld)\n", characterMap.size(), characterMap.capacity());
-	printf("\tColorMap:\tsize(%ld), capacity(%ld)\n", colorMap.size(), colorMap.capacity());
-	printf("\tDefaultColor:\t%d\n", defaultColor);
+	if(isFirst) std::cout << "Control:\n";
+	std::cout << "\tPosition:\tx(" << position.x << "), y(" << position.y << ")\n";
+	std::cout << "\tSize:\t\tw(" << size.width << "), h(" << size.height << ")\n";
+	std::cout << "\tCharMap:\tsize(" << characterMap.size() << "), capacity(" << characterMap.capacity() << ")\n";
+	std::cout << "\tColorMap:\tsize(" << colorMap.size() << "), capacity(" << colorMap.capacity() << ")\n";
+	std::cout << "\tDefaultColor:\t" << defaultColor << "\n";
 }
 #endif
