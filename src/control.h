@@ -28,6 +28,10 @@ public:
 
 	inline Position getPosition() { return position; }
 
+	inline void setPosition(Position newPos) { position = newPos; }
+
+	inline void setPosition(int newX, int newY) { position.x = newX; position.y = newY; }
+
 	inline Size getSize() { return size; }
 
 	inline int getCharacter(int argX, int argY) { return characterMap[M2V(argX, argY)]; }
