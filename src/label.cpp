@@ -75,8 +75,8 @@ void Label::draw()
 void Label::print(bool isFirst)
 {
 	if(isFirst) std::cout << "Label:\n";
-	std::cout << "\tText: " << text << "\n";
-	std::cout << "\tWrap: " << wrap << "\n";
+	std::cout << "\tText:\t\t" << text << "\n";
+	std::cout << "\tWrap:\t\t" << wrap << "\n";
 	Control::print(false);
 }
 #endif

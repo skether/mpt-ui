@@ -30,6 +30,7 @@ void Control::resize(int argW, int argH)
 void Control::print(bool isFirst)
 {
 	if(isFirst) std::cout << "Control:\n";
+	std::cout << "\tParent:\t\t" << parent << "\n";
 	std::cout << "\tPosition:\tx(" << position.x << "), y(" << position.y << ")\n";
 	std::cout << "\tSize:\t\tw(" << size.width << "), h(" << size.height << ")\n";
 	std::cout << "\tCharMap:\tsize(" << characterMap.size() << "), capacity(" << characterMap.capacity() << ")\n";
