@@ -4,6 +4,7 @@
 
 Control::Control()
 {
+	parent = NULL;
 	defaultColor = -1; //Transparent
 }
 

@@ -7,6 +7,7 @@
 
 #include "color.h"
 #include "control.h"
+#include "container.h"
 #include "label.h"
 
 int main()
@@ -29,7 +30,7 @@ int main()
 
 	//Setup Controls
 	Label testControl;
-	testControl.resize(29, 5);
+	testControl.resize(20, 5);
 	testControl.setText("Some testing text is here! ye\nboi thiswordissolongitshouldnotfit! something");
 	for (int y = 0; y < testControl.getSize().height; ++y)
 	{
@@ -69,7 +70,15 @@ int main()
 
 	//Debug Info after shutdown
 #ifdef __DEBUG__
-	testControl.print();
+	//testControl.print();
+
+	Container testContainer;
+	testContainer.addControl(&testControl);
+	testContainer.draw();
+	//testContainer.print();
+	//testControl.print();
+	//testContainer.resize(2, 2);
+	//testContainer.print();
 #endif
 
 	std::exit(0);
