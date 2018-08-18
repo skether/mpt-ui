@@ -23,7 +23,6 @@ void Container::draw()
 	Size controlSize;
 	for (std::vector<Control*>::iterator i = controls.begin(); i != controls.end(); ++i)
 	{
-		(**i).print();
 		controlPos = (**i).getPosition();
 		controlSize = (**i).getSize();
 		for(int y = 0; y < controlSize.height && controlPos.y + y < getSize().height; y++)
