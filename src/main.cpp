@@ -25,8 +25,6 @@ void testPrint(Control* ctrl)
 		{
 			addch((*ctrl).getCharacter(x, y));
 		}
-		addch('#');
-		addch((y%10)+49);
 	}
 	wrefresh(stdscr);
 }
@@ -52,10 +50,10 @@ int main()
 
 	//Setup Controls
 	VerticalStackContainer testContainer;
-	testContainer.resize(70, 20);
+	testContainer.resize(COLS, LINES);
 	testContainer.addSizingParameter(SizingProperty(2, false));
 	testContainer.addSizingParameter(SizingProperty(-1, true));
-	testContainer.addSizingParameter(SizingProperty(2, false));
+	testContainer.addSizingParameter(SizingProperty(5, false));
 
 	HorizontalStackContainer horizStack;
 	horizStack.addSizingParameter(SizingProperty(15, false));
@@ -94,6 +92,7 @@ int main()
 	{
 		switch(ch)
 		{
+			case KEY_RESIZE: testContainer.resize(COLS, LINES); testPrint(&testContainer); break;
 			case KEY_F(5): testPrint(&testContainer); break;
 			default: break;
 		}
