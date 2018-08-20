@@ -10,6 +10,7 @@
 #include "container.h"
 #include "stackContainer.h"
 
+#include "spacer.h"
 #include "label.h"
 
 #ifdef __DEBUG__
@@ -58,6 +59,7 @@ int main()
 
 	HorizontalStackContainer horizStack;
 	horizStack.addSizingParameter(SizingProperty(15, false));
+	horizStack.addSizingParameter(SizingProperty(-1, true));
 	horizStack.addSizingParameter(SizingProperty(15, false));
 
 	Label testControl1;
@@ -72,7 +74,10 @@ int main()
 	Label testControl4;
 	testControl4.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl4\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
 
+	Spacer testSpacer;
+
 	horizStack.addControl(&testControl2);
+	horizStack.addControl(&testSpacer);
 	horizStack.addControl(&testControl4);
 
 	testContainer.addControl(&testControl1);
