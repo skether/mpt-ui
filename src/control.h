@@ -46,7 +46,7 @@ public:
 
 	inline void setDefaultColor(int newColor) { defaultColor = newColor; colorMap.clear(); colorMap.resize(size.width * size.height, defaultColor); }
 
-	void resize(int argW, int argH);
+	virtual void resize(int argW, int argH);
 
 	virtual void draw() = 0;
 

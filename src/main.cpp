@@ -8,7 +8,28 @@
 #include "color.h"
 #include "control.h"
 #include "container.h"
+#include "stackContainer.h"
+
 #include "label.h"
+
+#ifdef __DEBUG__
+void testPrint(Control* ctrl)
+{
+	werase(stdscr);
+	wrefresh(stdscr);
+	for (int y = 0; y < (*ctrl).getSize().height; ++y)
+	{
+		move((*ctrl).getPosition().y + y, (*ctrl).getPosition().x);
+		for (int x = 0; x < (*ctrl).getSize().width; ++x)
+		{
+			addch((*ctrl).getCharacter(x, y));
+		}
+		addch('#');
+		addch((y%10)+49);
+	}
+	wrefresh(stdscr);
+}
+#endif
 
 int main()
 {
@@ -29,17 +50,38 @@ int main()
 	setupColors();
 
 	//Setup Controls
-	Label testControl;
-	testControl.resize(20, 5);
-	testControl.setText("Some testing text is here! ye\nboi thiswordissolongitshouldnotfit! something");
-	for (int y = 0; y < testControl.getSize().height; ++y)
-	{
-		move(testControl.getPosition().y + y, testControl.getPosition().x);
-		for (int x = 0; x < testControl.getSize().width; ++x)
-		{
-			addch(testControl.getCharacter(x, y));
-		}
-	}
+	VerticalStackContainer testContainer;
+	testContainer.resize(70, 20);
+	testContainer.addSizingParameter(SizingProperty(2, false));
+	testContainer.addSizingParameter(SizingProperty(-1, true));
+	testContainer.addSizingParameter(SizingProperty(2, false));
+
+	HorizontalStackContainer horizStack;
+	horizStack.addSizingParameter(SizingProperty(15, false));
+	horizStack.addSizingParameter(SizingProperty(15, false));
+
+	Label testControl1;
+	testControl1.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl1\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+
+	Label testControl2;
+	testControl2.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+
+	Label testControl3;
+	testControl3.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl3\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	
+	Label testControl4;
+	testControl4.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl4\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+
+	horizStack.addControl(&testControl2);
+	horizStack.addControl(&testControl4);
+
+	testContainer.addControl(&testControl1);
+	testContainer.addControl(&horizStack);
+	testContainer.addControl(&testControl3);
+
+	horizStack.draw();
+	testContainer.draw();
+	testPrint(&testContainer);
 
 	//Main control loop
 	int ch = 0;
@@ -47,20 +89,7 @@ int main()
 	{
 		switch(ch)
 		{
-			case KEY_F(5): {
-				werase(stdscr);
-				wrefresh(stdscr);
-				testControl.setWrap(!testControl.getWrap());
-				for (int y = 0; y < testControl.getSize().height; ++y)
-				{
-					move(testControl.getPosition().y + y, testControl.getPosition().x);
-					for (int x = 0; x < testControl.getSize().width; ++x)
-					{
-						addch(testControl.getCharacter(x, y));
-					}
-				}
-				wrefresh(stdscr);
-			} break;
+			case KEY_F(5): testPrint(&testContainer); break;
 			default: break;
 		}
 	}
@@ -70,15 +99,13 @@ int main()
 
 	//Debug Info after shutdown
 #ifdef __DEBUG__
-	//testControl.print();
+	testContainer.print();
+	horizStack.print();
 
-	Container testContainer;
-	testContainer.addControl(&testControl);
-	testContainer.draw();
-	//testContainer.print();
-	//testControl.print();
-	//testContainer.resize(2, 2);
-	//testContainer.print();
+	testControl1.print();
+	testControl2.print();
+	testControl3.print();
+	testControl4.print();
 #endif
 
 	std::exit(0);
