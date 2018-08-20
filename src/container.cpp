@@ -10,9 +10,9 @@ void Container::resize(int argW, int argH)
 
 void Container::draw()
 {
-	for(int y = 0; getSize().height; y++)
+	for(int y = 0; y < getSize().height; y++)
 	{
-		for(int x = 0; getSize().width; x++)
+		for(int x = 0; x < getSize().width; x++)
 		{
 			setCharacter(x, y, 32);
 			setColor(x, y, -1);
