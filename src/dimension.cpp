@@ -11,3 +11,9 @@ Position::Position(int argX, int argY)
 	x = argX;
 	y = argY;
 }
+
+SizingProperty::SizingProperty(double argValue, bool argIsPercentage)
+{
+	value = argValue;
+	isPercentage = argIsPercentage;
+}
