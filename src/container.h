@@ -19,6 +19,8 @@ public:
 
 	virtual void resizeChildren(int newWidth, int newHeight) = 0;
 
+	inline void inheritColor(int argX, int argY, int argColor) { if(argColor != -1) setColor(argX, argY, argColor); }
+
 	void draw();
 
 #ifdef __DEBUG__

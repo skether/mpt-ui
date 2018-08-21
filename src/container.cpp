@@ -10,12 +10,13 @@ void Container::resize(int argW, int argH)
 
 void Container::draw()
 {
+	int color = getFocus() ? getDefaultFocusColor() : getDefaultColor();
 	for(int y = 0; y < getSize().height; y++)
 	{
 		for(int x = 0; x < getSize().width; x++)
 		{
 			setCharacter(x, y, 32);
-			setColor(x, y, -1);
+			setColor(x, y, color);
 		}
 	}
 
@@ -30,7 +31,7 @@ void Container::draw()
 			for(int x = 0; x < controlSize.width && controlPos.x + x < getSize().width; x++)
 			{
 				setCharacter(controlPos.x + x, controlPos.y + y, (**i).getCharacter(x, y));
-				setColor(controlPos.x + x, controlPos.y + y, (**i).getColor(x, y));
+				inheritColor(controlPos.x + x, controlPos.y + y, (**i).getColor(x, y));
 			}
 		}
 	}

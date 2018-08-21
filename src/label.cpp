@@ -10,6 +10,7 @@ void Label::draw()
 	unsigned int cI = 0;
 	bool newLine;
 	bool wordStart = true;
+	int color = getFocus() ? getDefaultFocusColor() : getDefaultColor();
 	for (int y = 0; y < getSize().height; ++y)
 	{
 		newLine = false;
@@ -64,6 +65,8 @@ void Label::draw()
 				}
 				else setCharacter(x, y, 32);
 			}
+
+			setColor(x, y, color);
 		}
 		if(!wrap && !newLine) while(cI < text.length() && text[cI] != '\n') cI++;
 		if(text[cI] == '\n') cI++;

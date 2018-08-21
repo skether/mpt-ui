@@ -23,7 +23,7 @@ void testPrint(Control* ctrl)
 		move((*ctrl).getPosition().y + y, (*ctrl).getPosition().x);
 		for (int x = 0; x < (*ctrl).getSize().width; ++x)
 		{
-			addch((*ctrl).getCharacter(x, y));
+			addch((*ctrl).getCharacterForPrinting(x, y));
 		}
 	}
 	wrefresh(stdscr);
@@ -54,6 +54,8 @@ int main()
 	testContainer.addSizingParameter(SizingProperty(2, false));
 	testContainer.addSizingParameter(SizingProperty(-1, true));
 	testContainer.addSizingParameter(SizingProperty(5, false));
+	testContainer.setDefaultColor(Color_Window_Inactive_Normal);
+	testContainer.setDefaultFocusColor(Color_Window_Active_Normal);
 
 	HorizontalStackContainer horizStack;
 	horizStack.addSizingParameter(SizingProperty(15, false));
@@ -73,6 +75,7 @@ int main()
 	testControl4.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl4\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
 
 	Spacer testSpacer;
+	testSpacer.setDefaultColor(0);
 
 	horizStack.addControl(&testControl2);
 	horizStack.addControl(&testSpacer);
@@ -93,7 +96,7 @@ int main()
 		switch(ch)
 		{
 			case KEY_RESIZE: testContainer.resize(COLS, LINES); testPrint(&testContainer); break;
-			case KEY_F(5): testPrint(&testContainer); break;
+			case KEY_F(5): testContainer.setFocus(!testContainer.getFocus()); testPrint(&testContainer); break;
 			default: break;
 		}
 	}

@@ -2,6 +2,7 @@
 #define CONTROL_H
 
 #include <vector>
+#include <ncurses.h>
 
 #include "globalDefine.h"
 
@@ -14,6 +15,9 @@ private:
 	Size size;
 
 	int defaultColor;
+	int defaultFocusColor;
+
+	bool isFocused;
 
 	std::vector<int> characterMap;
 	std::vector<int> colorMap;
@@ -44,7 +48,17 @@ public:
 
 	inline int getDefaultColor() { return defaultColor; }
 
-	inline void setDefaultColor(int newColor) { defaultColor = newColor; colorMap.clear(); colorMap.resize(size.width * size.height, defaultColor); }
+	inline void setDefaultColor(int newColor) { defaultColor = COLOR_PAIR(newColor); if(!isFocused) { draw(); } }
+
+	inline int getDefaultFocusColor() { return defaultFocusColor; }
+
+	inline void setDefaultFocusColor(int newColor) { defaultFocusColor = COLOR_PAIR(newColor); if(isFocused) { draw(); } }
+
+	inline bool getFocus() { return isFocused; }
+
+	inline void setFocus(bool newFocus) { if(newFocus != isFocused) { isFocused = newFocus; draw(); } }
+
+	inline int getCharacterForPrinting(int argX, int argY) { return characterMap[M2V(argX, argY)] | colorMap[M2V(argX, argY)]; }
 
 	virtual void resize(int argW, int argH);
 

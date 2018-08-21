@@ -1,11 +1,11 @@
 #include "control.h"
 
-#include <ncurses.h>
-
 Control::Control()
 {
-	parent = NULL;
-	defaultColor = -1; //Transparent
+	parent = 0;
+	defaultColor = -1;
+	defaultFocusColor = -1;
+	isFocused = false;
 }
 
 void Control::resize(int argW, int argH)
@@ -21,7 +21,7 @@ void Control::resize(int argW, int argH)
 	if(colorMap.capacity() < unsigned(size.width * size.height))
 		colorMap.reserve(size.width * size.height * 4);
 	colorMap.clear();
-	colorMap.resize(size.width * size.height, defaultColor);
+	colorMap.resize(size.width * size.height, isFocused ? defaultFocusColor : defaultColor);
 
 	draw();
 }
@@ -37,5 +37,7 @@ void Control::print(bool isFirst)
 	std::cout << "\tCharMap:\tsize(" << characterMap.size() << "), capacity(" << characterMap.capacity() << ")\n";
 	std::cout << "\tColorMap:\tsize(" << colorMap.size() << "), capacity(" << colorMap.capacity() << ")\n";
 	std::cout << "\tDefaultColor:\t" << defaultColor << "\n";
+	std::cout << "\tDefaultFocusColor:\t" << defaultFocusColor << "\n";
+	std::cout << "\tisFocused:\t" << isFocused << "\n";
 }
 #endif
