@@ -1,6 +1,7 @@
 #include "stackContainer.h"
 
 #include <cmath>
+#include "inputHelper.h"
 
 StackContainer::StackContainer() : Container() {}
 
@@ -74,6 +75,21 @@ void VerticalStackContainer::resizeChildren(int newWidth, int newHeight)
 	}
 }
 
+bool VerticalStackContainer::selfHandleInput(int ch)
+{
+	if(isNav(ch))
+	{
+		switch(ch)
+		{
+			case KEY_DOWN: selectNextChild(); break;
+			case KEY_UP: selectPrevChild(); break;
+			default: return false; break;
+		}
+		return true;
+	}
+	else return false;
+}
+
 HorizontalStackContainer::HorizontalStackContainer() : StackContainer() {}
 
 void HorizontalStackContainer::resizeChildren(int newWidth, int newHeight)
@@ -142,6 +158,21 @@ void HorizontalStackContainer::resizeChildren(int newWidth, int newHeight)
 			(*controls[i]).resize(0, 0);
 		}
 	}
+}
+
+bool HorizontalStackContainer::selfHandleInput(int ch)
+{
+	if(isNav(ch))
+	{
+		switch(ch)
+		{
+			case KEY_LEFT: selectPrevChild(); break;
+			case KEY_RIGHT: selectNextChild(); break;
+			default: return false; break;
+		}
+		return true;
+	}
+	else return false;
 }
 
 #ifdef __DEBUG__

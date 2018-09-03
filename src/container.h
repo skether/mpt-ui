@@ -7,6 +7,7 @@ class Container : public Control
 {
 public:
 
+	int iSelectedControl;
 	std::vector<Control*> controls;
 
 	Container();
@@ -22,6 +23,14 @@ public:
 	inline void inheritColor(int argX, int argY, int argColor) { if(argColor != -1) setColor(argX, argY, argColor); }
 
 	void draw();
+
+	bool selectPrevChild();
+
+	bool selectNextChild();
+
+	virtual bool input(int ch);
+
+	virtual bool selfHandleInput(int ch) = 0;
 
 #ifdef __DEBUG__
 	inline void print() { print(true); }

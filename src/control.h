@@ -23,6 +23,8 @@ private:
 	std::vector<int> colorMap;
 
 public:
+	bool isSelectable;
+
 	Control* parent;
 
 	Control();
@@ -63,6 +65,10 @@ public:
 	virtual void resize(int argW, int argH);
 
 	virtual void draw() = 0;
+
+	inline void notifyParent() { if(parent != 0) { (*parent).draw(); } }
+
+	virtual bool input(int ch);
 
 #ifdef __DEBUG__
 	inline void print() { print(true); }

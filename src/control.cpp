@@ -6,6 +6,7 @@ Control::Control()
 	defaultColor = -1;
 	defaultFocusColor = -1;
 	isFocused = false;
+	isSelectable = false;
 }
 
 void Control::resize(int argW, int argH)
@@ -24,6 +25,11 @@ void Control::resize(int argW, int argH)
 	colorMap.resize(size.width * size.height, isFocused ? defaultFocusColor : defaultColor);
 
 	draw();
+}
+
+bool Control::input(int ch)
+{
+	return false;
 }
 
 #ifdef __DEBUG__

@@ -1,6 +1,10 @@
 #include "container.h"
 
-Container::Container() : Control() {}
+Container::Container() : Control()
+{
+	isSelectable = true;
+	iSelectedControl = -1;
+}
 
 void Container::resize(int argW, int argH)
 {
@@ -35,6 +39,45 @@ void Container::draw()
 			}
 		}
 	}
+
+	notifyParent();
+}
+
+bool Container::selectPrevChild()
+{
+	for (int i = iSelectedControl - 1; i >= 0; --i)
+	{
+		if((*controls[i]).isSelectable)
+		{
+			if(iSelectedControl != -1) (*controls[iSelectedControl]).setFocus(false);
+			(*controls[i]).setFocus(true);
+			iSelectedControl = i;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Container::selectNextChild()
+{
+	for (int i = iSelectedControl + 1; i < controls.size(); ++i)
+	{
+		if((*controls[i]).isSelectable)
+		{
+			if(iSelectedControl != -1) (*controls[iSelectedControl]).setFocus(false);
+			(*controls[i]).setFocus(true);
+			iSelectedControl = i;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Container::input(int ch)
+{
+	if(iSelectedControl == -1 && !selectNextChild()) return false;
+	else if((*controls[iSelectedControl]).input(ch)) return true;
+	else return selfHandleInput(ch);
 }
 
 #ifdef __DEBUG__

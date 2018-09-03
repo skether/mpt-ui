@@ -71,6 +71,8 @@ void Label::draw()
 		if(!wrap && !newLine) while(cI < text.length() && text[cI] != '\n') cI++;
 		if(text[cI] == '\n') cI++;
 	}
+
+	notifyParent();
 }
 
 #ifdef __DEBUG__

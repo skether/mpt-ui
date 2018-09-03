@@ -4,6 +4,7 @@
 #include <ncurses.h>
 
 #include "globalDefine.h"
+#include "inputHelper.h"
 
 #include "color.h"
 #include "control.h"
@@ -64,15 +65,23 @@ int main()
 
 	Label testControl1;
 	testControl1.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl1\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl1.setDefaultFocusColor(Color_Window_Active_Normal);
+	testControl1.isSelectable = true;
 
 	Label testControl2;
 	testControl2.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl2.setDefaultFocusColor(Color_Window_Active_Normal);
+	testControl2.isSelectable = true;
 
 	Label testControl3;
 	testControl3.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl3\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl3.setDefaultFocusColor(Color_Window_Active_Normal);
+	testControl3.isSelectable = true;
 	
 	Label testControl4;
 	testControl4.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl4\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl4.setDefaultFocusColor(Color_Window_Active_Normal);
+	testControl4.isSelectable = true;
 
 	Spacer testSpacer;
 	testSpacer.setDefaultColor(0);
@@ -97,7 +106,7 @@ int main()
 		{
 			case KEY_RESIZE: testContainer.resize(COLS, LINES); testPrint(&testContainer); break;
 			case KEY_F(5): testContainer.setFocus(!testContainer.getFocus()); testPrint(&testContainer); break;
-			default: break;
+			default: if(isCharNav(ch)) { testContainer.input(ch); testPrint(&testContainer); } break;
 		}
 	}
 

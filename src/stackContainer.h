@@ -26,6 +26,8 @@ public:
 	VerticalStackContainer();
 
 	void resizeChildren(int newWidth, int newHeight);
+
+	bool selfHandleInput(int ch);
 };
 
 class HorizontalStackContainer : public StackContainer
@@ -35,6 +37,8 @@ public:
 	HorizontalStackContainer();
 
 	void resizeChildren(int newWidth, int newHeight);
+
+	bool selfHandleInput(int ch);
 };
 
 #endif
