@@ -1,15 +1,13 @@
 #include "inputHelper.h"
 
-#include <ncurses.h>
-
 bool isNav(int ch)
 {
 	bool retVal = false;
-	if(ch > 0) switch(ch)
+	switch(ch)
 	{
-		case '\t':									//Tab
-		case '\n':									//Enter
-		case 27:									//Escape
+		case KEYCHAR_TAB:
+		case KEYCHAR_ENTER:
+		case KEYCHAR_ESCAPE:
 		case KEY_DOWN:
 		case KEY_UP:
 		case KEY_LEFT:

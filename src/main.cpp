@@ -13,6 +13,7 @@
 
 #include "spacer.h"
 #include "label.h"
+#include "textBox.h"
 
 #ifdef __DEBUG__
 void testPrint(Control* ctrl)
@@ -61,6 +62,10 @@ int main()
 	testContainer.setDefaultColor(Color_Window_Inactive_Normal);
 	testContainer.setDefaultFocusColor(Color_Window_Active_Normal);
 
+	VerticalStackContainer middleStack;
+	middleStack.addSizingParameter(SizingProperty(1, false));
+	middleStack.addSizingParameter(SizingProperty(-1, true));
+
 	HorizontalStackContainer horizStack;
 	horizStack.addSizingParameter(SizingProperty(15, false));
 	horizStack.addSizingParameter(SizingProperty(-1, true));
@@ -86,17 +91,27 @@ int main()
 	testControl4.setDefaultFocusColor(Color_Window_Active_Normal);
 	testControl4.isSelectable = true;
 
+	TextBox testTB;
+	testTB.setDefaultColor(Color_TextBox_Defocused);
+	testTB.setDefaultFocusColor(Color_TextBox_Focused);
+	testTB.setCursorColor(Color_TextBox_Cursor);
+	testTB.setText("Test Box haha funny :D!");
+
 	Spacer testSpacer;
 	testSpacer.setDefaultColor(0);
 
-	horizStack.addControl(&testControl2);
-	horizStack.addControl(&testSpacer);
+	middleStack.addControl(&testTB);
+	middleStack.addControl(&testSpacer);
+
 	horizStack.addControl(&testControl4);
+	horizStack.addControl(&middleStack);
+	horizStack.addControl(&testControl2);
 
 	testContainer.addControl(&testControl1);
 	testContainer.addControl(&horizStack);
 	testContainer.addControl(&testControl3);
 
+	middleStack.draw();
 	horizStack.draw();
 	testContainer.draw();
 	testPrint(&testContainer);
@@ -125,6 +140,10 @@ int main()
 	testControl2.print();
 	testControl3.print();
 	testControl4.print();
+
+	testTB.print();
+
+	testSpacer.print();
 #endif
 
 	std::exit(0);
