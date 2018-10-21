@@ -33,6 +33,9 @@ void testPrint(Control* ctrl)
 
 int main()
 {
+	//Delete debugLog.txt file's contents!
+	_debugErase();
+
 	//Init ncurses
 	initscr();	//Init screen
 	cbreak();	//Disable input buffering
