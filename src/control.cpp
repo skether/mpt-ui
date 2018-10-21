@@ -10,6 +10,15 @@ Control::Control()
 	isSelectable = false;
 }
 
+void Control::setFocus(bool newFocus)
+{
+	if(newFocus != isFocused)
+	{
+		isFocused = newFocus;
+		draw();
+	}
+}
+
 void Control::resize(int argW, int argH)
 {
 	size.width = argW;

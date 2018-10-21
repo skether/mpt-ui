@@ -14,6 +14,8 @@ public:
 
 	inline void addControl(Control* argControl) { controls.push_back(argControl); argControl->parent = this; resizeChildren(); }
 
+	virtual void setFocus(bool newFocus);
+
 	void resize(int argW, int argH);
 
 	inline void resizeChildren() { resizeChildren(getSize().width, getSize().height); }

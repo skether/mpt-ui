@@ -63,7 +63,7 @@ public:
 
 	inline bool getFocus() { return isFocused; }
 
-	inline void setFocus(bool newFocus) { if(newFocus != isFocused) { isFocused = newFocus; draw(); } }
+	virtual void setFocus(bool newFocus);
 
 	inline int getCharacterForPrinting(int argX, int argY) { return characterMap[M2V(argX, argY)] | colorMap[M2V(argX, argY)]; }
 

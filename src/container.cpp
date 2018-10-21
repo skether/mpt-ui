@@ -7,6 +7,22 @@ Container::Container() : Control()
 	iSelectedControl = -1;
 }
 
+void Container::setFocus(bool newFocus)
+{
+	if(newFocus)
+	{
+		if(iSelectedControl == -1)
+		{
+			selectNextChild();
+		}
+		else
+		{
+			(*controls[iSelectedControl]).setFocus(true);
+		}
+	}
+	else for (unsigned int i = 0; i < controls.size(); ++i) (*controls[i]).setFocus(false);
+}
+
 void Container::resize(int argW, int argH)
 {
 	resizeChildren(argW, argH);
@@ -50,7 +66,10 @@ bool Container::selectPrevChild()
 	{
 		if((*controls[i]).isSelectable)
 		{
-			if(iSelectedControl != -1) (*controls[iSelectedControl]).setFocus(false);
+			if(iSelectedControl != -1) 
+			{
+				(*controls[iSelectedControl]).setFocus(false);
+			}
 			(*controls[i]).setFocus(true);
 			iSelectedControl = i;
 			return true;
@@ -61,11 +80,14 @@ bool Container::selectPrevChild()
 
 bool Container::selectNextChild()
 {
-	for (int i = iSelectedControl + 1; i < controls.size(); ++i)
+	for (int i = iSelectedControl + 1; i < signed(controls.size()); ++i)
 	{
 		if((*controls[i]).isSelectable)
 		{
-			if(iSelectedControl != -1) (*controls[iSelectedControl]).setFocus(false);
+			if(iSelectedControl != -1)
+			{
+				(*controls[iSelectedControl]).setFocus(false);
+			}
 			(*controls[i]).setFocus(true);
 			iSelectedControl = i;
 			return true;
@@ -87,6 +109,7 @@ void Container::print(bool isFirst)
 {
 	if(isFirst) std::cout << ControlTypeToString(type) << "\n";
 	std::cout << "\tControls:\tsize(" << controls.size() << "), capacity(" << controls.capacity() << ")\n";
+	std::cout << "\tiSelectedChild:\t" << iSelectedControl << "\n";
 	Control::print(false);
 }
 #endif
