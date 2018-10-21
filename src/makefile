@@ -8,7 +8,7 @@ all: build
 	./$(OUTNAME)
 
 .PHONY: build
-build: main.o color.o dimension.o inputHelper.o types.o control.o container.o stackContainer.o spacer.o label.o textBox.o
+build: main.o color.o dimension.o windowManager.o inputHelper.o types.o control.o container.o stackContainer.o spacer.o label.o textBox.o
 	$(CC) $(CXXFLAGS) -o $(OUTNAME) $^ -lncurses
 
 .PHONY: clean

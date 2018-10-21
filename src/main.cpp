@@ -6,6 +6,7 @@
 #include "globalDefine.h"
 #include "inputHelper.h"
 
+#include "windowManager.h"
 #include "color.h"
 #include "control.h"
 #include "container.h"
@@ -55,7 +56,7 @@ int main()
 
 	//Setup Controls
 	VerticalStackContainer testContainer;
-	testContainer.resize(COLS, LINES);
+	//testContainer.resize(COLS, LINES);
 	testContainer.addSizingParameter(SizingProperty(2, false));
 	testContainer.addSizingParameter(SizingProperty(-1, true));
 	testContainer.addSizingParameter(SizingProperty(5, false));
@@ -72,22 +73,26 @@ int main()
 	horizStack.addSizingParameter(SizingProperty(15, false));
 
 	Label testControl1;
-	testControl1.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl1\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl1.setText("testControl1");
+	//testControl1.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl1\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
 	testControl1.setDefaultFocusColor(Color_Window_Active_Normal);
 	testControl1.isSelectable = true;
 
 	Label testControl2;
-	testControl2.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl2.setText("testControl2");
+	//testControl2.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
 	testControl2.setDefaultFocusColor(Color_Window_Active_Normal);
 	testControl2.isSelectable = true;
 
 	Label testControl3;
-	testControl3.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl3\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl3.setText("testControl3");
+	//testControl3.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl3\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
 	testControl3.setDefaultFocusColor(Color_Window_Active_Normal);
 	testControl3.isSelectable = true;
 	
 	Label testControl4;
-	testControl4.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl4\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl4.setText("testControl4");
+	//testControl4.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl4\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
 	testControl4.setDefaultFocusColor(Color_Window_Active_Normal);
 	testControl4.isSelectable = true;
 
@@ -99,6 +104,7 @@ int main()
 
 	Spacer testSpacer;
 	testSpacer.setDefaultColor(0);
+	//testSpacer.setDefaultColor(Color_TextBox_Cursor);
 
 	middleStack.addControl(&testTB);
 	middleStack.addControl(&testSpacer);
@@ -114,18 +120,22 @@ int main()
 	middleStack.draw();
 	horizStack.draw();
 	testContainer.draw();
-	testPrint(&testContainer);
+	//testPrint(&testContainer);
+
+	WindowManager wm(stdscr);
+	wm.setChild(&testContainer);
 
 	//Main control loop
 	int ch = 0;
 	while((ch = getch()) != KEY_F(10))
 	{
-		switch(ch)
+		/*switch(ch)
 		{
 			case KEY_RESIZE: testContainer.resize(COLS, LINES); testPrint(&testContainer); break;
 			case KEY_F(5): testContainer.setFocus(!testContainer.getFocus()); testPrint(&testContainer); break;
 			default: if(isCharNav(ch)) { testContainer.input(ch); testPrint(&testContainer); } break;
-		}
+		}*/
+		wm.input(ch);
 	}
 
 	//Shutdown
