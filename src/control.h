@@ -2,57 +2,84 @@
 #define CONTROL_H
 
 #include <vector>
+#include <ncurses.h>
 
-//Base class for control objects.
+#include "globalDefine.h"
+
+#include "dimension.h"
+#include "types.h"
+
+enum class ControlType;
+
 class Control
 {
+private:
+	Position position;
+	Size size;
+
+	int defaultColor;
+	int defaultFocusColor;
+
+	bool isFocused;
+
+	std::vector<int> characterMap;
+	std::vector<int> colorMap;
+
 public:
-	int height;												//Height of the control in rows.
-	double heightDyn;										//True if the control's height is automatically sized to its parent. If dynamic its a double value between 0 and 1, that specifies the percantage of the parents height, or if its negative then height = parent's height - abs(heightDyn).
-	int width;												//Height of the control in cols.
-	double widthDyn;										//True if the control's width is automatically sized to its parent. If dynamic its a double value between 0 and 1, that specifies the percantage of the parents width, or if its negative then width = parent's width - abs(widthDyn).
-	int posRow;												//Sets which row the control's upper left corner is.
-	double posRowDyn;										//True if the control's vertical position is automatically calculated to its parent. If dynamic its a double value between 0 and 1, that specifies the percantage of the parents height.
-	int posCol;												//Sets which column the control's upper left corner is.
-	double posColDyn;										//True if the control's horizontal position is automatically calculated to its parent. If dynamic its a double value between 0 and 1, that specifies the percantage of the parents width.
+	bool isSelectable;
 
-	std::vector<int> contentBuffer;							//Stores the character information of the control.
-	std::vector<int> contentColorBuffer;					//Stores the color information of the control.
+	ControlType type;
 
-	//Base Constructors for the object.
-	//Control has no dynamic sizing properties.
-	Control(int argWidth, int argHeight, int argPosRow, int argPosCol);
+	Control* parent;
 
-	//Control has at least one dynamic sizing property.
-	Control(double argWidth, double argHeight, double argPosRow, double argPosCol, bool argWidthDyn, bool argHeightDyn, bool argPosRowDyn, bool argPosColDyn, int parWidth, int parHeight);
+	Control();
 
-	//Resizes the control
-	void resize(int parWidth, int parHeight);
+	//Matrix indexes to Vector Index
+	inline int M2V(int argX, int argY) { return argY * size.width + argX; }
 
-	//Gets character at the desired position. Returns the character without any color modifiers.
-	int getCharacter(int row, int col);
+	inline Position getPosition() { return position; }
 
-	//Gets character at the desired position. Returns the character with color modifiers.
-	int getCharacterWithColor(int row, int col);
+	inline void setPosition(Position newPos) { position = newPos; }
 
-	//Sets character at the desired position.
-	//This immediately sets the contentBuffer to the new value.
-	//If no color is specified, default color will be set.
-	void setCharacter(int row, int col, int newChar);
+	inline void setPosition(int newX, int newY) { position.x = newX; position.y = newY; }
 
-	void setCharacter(int row, int col, int newChar, int color);
+	inline Size getSize() { return size; }
 
-	//Gets color at the desired position. Return the color without the character.
-	int getColor(int row, int col);
+	inline int getCharacter(int argX, int argY) { return characterMap[M2V(argX, argY)]; }
 
-	//Sets color at the desired position.
-	void setColor(int row, int col, int color);
+	inline void setCharacter(int argX, int argY, int newChar) { characterMap[M2V(argX, argY)] = newChar; }
 
-	//Sets the new default color and, refreshes the color buffer.
-	void setDefaultColor(int color);
+	inline int getColor(int argX, int argY) { return colorMap[M2V(argX, argY)]; }
 
-protected:
-	int defaultColor;										//Default colorPair for the control.
+	inline void setColor(int argX, int argY, int newColor) { colorMap[M2V(argX, argY)] = newColor; }
+
+	inline int getDefaultColor() { return defaultColor; }
+
+	inline void setDefaultColor(int newColor) { defaultColor = COLOR_PAIR(newColor); if(!isFocused) { draw(); } }
+
+	inline int getDefaultFocusColor() { return defaultFocusColor; }
+
+	inline void setDefaultFocusColor(int newColor) { defaultFocusColor = COLOR_PAIR(newColor); if(isFocused) { draw(); } }
+
+	inline bool getFocus() { return isFocused; }
+
+	virtual void setFocus(bool newFocus);
+
+	inline int getCharacterForPrinting(int argX, int argY) { return characterMap[M2V(argX, argY)] | colorMap[M2V(argX, argY)]; }
+
+	virtual void resize(int argW, int argH);
+
+	virtual void draw() = 0;
+
+	inline void notifyParent() { if(parent != 0) { (*parent).draw(); } }
+
+	virtual bool input(int ch);
+
+#ifdef __DEBUG__
+	inline void print() { print(true); }
+
+	void print(bool isFirst);
+#endif
 };
 
 #endif

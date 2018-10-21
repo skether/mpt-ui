@@ -1,102 +1,160 @@
 #include <iostream>
 #include <cstdlib>
-#include <vector>
-#include <list>
 
 #include <ncurses.h>
 
+#include "globalDefine.h"
+#include "inputHelper.h"
+
+#include "windowManager.h"
 #include "color.h"
 #include "control.h"
-#include "window.h"
+#include "container.h"
+#include "stackContainer.h"
 
-//The programs main entry point
-int main()
+#include "spacer.h"
+#include "label.h"
+#include "textBox.h"
+
+#ifdef __DEBUG__
+void testPrint(Control* ctrl)
 {
-	//**********************//
-	//* Initialize ncurses *//
-	//**********************//
-
-	initscr();												//Initializing ncurses screen
-	cbreak();												//Disable buffering of typed characters
-	noecho();												//Disable automatic echoing of typed characters
-	keypad(stdscr, true);									//Enable capturing of special keys
-	curs_set(0);											//Hide the cursor
-
-	//Check if terminal has color support, if not display error the exit the program.
-	//TODO: Right now this projects relies on color support. Black and White only support could be added later.
-	if (has_colors() == FALSE)
+	werase(stdscr);
+	wrefresh(stdscr);
+	for (int y = 0; y < (*ctrl).getSize().height; ++y)
 	{
-	    endwin();
-	    std::cout << "Your terminal does not support color\n";
-	    std::exit(1);
-	}
-
-	start_color();											//Initializing ncurses colors
-	setupColorPairs();										//Setting up the color pairs. Implemented in color.c
-
-	//********************//
-	//* DEBUG SETUP CODE *//
-	//********************//
-
-	WindowHost winHost(COLS, LINES, 0, 0, stdscr);
-
-	Window testWin1(.2, 1, 0, 0, true, true, false, true, winHost.width, winHost.height);
-	testWin1.setDefaultColor(COLOR_PAIR(P_FGW));
-	testWin1.setBorder();
-	winHost.addWindow(&testWin1);
-
-	Window testWin2(.2, 1, 0, .2, true, true, false, true, winHost.width, winHost.height);
-	testWin2.setDefaultColor(COLOR_PAIR(P_BGW));
-	testWin2.setBorder();
-	winHost.addWindow(&testWin2);
-
-	Window testWin3(.6, 1, 0, .4, true, true, false, true, winHost.width, winHost.height);
-	testWin3.setDefaultColor(COLOR_PAIR(P_BGW));
-	testWin3.setBorder();
-	winHost.addWindow(&testWin3);
-
-	winHost.printWindows();
-
-	//*********************//
-	//* Main control loop *//
-	//*********************//
-	
-	int ch = 0;												//Stores typed character
-	while((ch = getch()) != KEY_F(10))						//Main control loop. Exit character = F10
-	{
-		switch(ch)
+		move((*ctrl).getPosition().y + y, (*ctrl).getPosition().x);
+		for (int x = 0; x < (*ctrl).getSize().width; ++x)
 		{
-			case KEY_RESIZE: winHost.resize(COLS, LINES); break;
-			case KEY_F(1): testWin1.setDefaultColor(COLOR_PAIR(P_FGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.printWindows(); break;
-			case KEY_F(2): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_FGW)); testWin3.setDefaultColor(COLOR_PAIR(P_BGW)); winHost.printWindows(); break;
-			case KEY_F(3): testWin1.setDefaultColor(COLOR_PAIR(P_BGW)); testWin2.setDefaultColor(COLOR_PAIR(P_BGW)); testWin3.setDefaultColor(COLOR_PAIR(P_FGW)); winHost.printWindows(); break;
-			case KEY_F(5): winHost.printWindows(); break;
-			case KEY_F(6): winHost.resize(COLS/2, LINES/2); break;
-			case KEY_F(7): winHost.resize(COLS, LINES); break;
-			default: break;
+			addch((*ctrl).getCharacterForPrinting(x, y));
 		}
 	}
+	wrefresh(stdscr);
+}
+#endif
 
+int main()
+{
+	//Delete debugLog.txt file's contents!
+	_debugErase();
 
+	//Init ncurses
+	initscr();	//Init screen
+	cbreak();	//Disable input buffering
+	noecho();	//Disable input reflection
+	keypad(stdscr, true);	//Enable special character capture
+	curs_set(0);	//Hide the cursor
 
-	//************//
-	//* Shutdown *//
-	//************//
+	if(has_colors() == false) //Check if terminal has color support
+	{
+		endwin();
+		std::cout << "Your terminal does not support color!\n";
+		std::exit(1);
+	}
+	start_color();
+	setupColors();
 
+	//Setup Controls
+	VerticalStackContainer testContainer;
+	//testContainer.resize(COLS, LINES);
+	testContainer.addSizingParameter(SizingProperty(2, false));
+	testContainer.addSizingParameter(SizingProperty(-1, true));
+	testContainer.addSizingParameter(SizingProperty(5, false));
+	testContainer.setDefaultColor(Color_Window_Inactive_Normal);
+	testContainer.setDefaultFocusColor(Color_Window_Active_Normal);
+
+	VerticalStackContainer middleStack;
+	middleStack.addSizingParameter(SizingProperty(1, false));
+	middleStack.addSizingParameter(SizingProperty(-1, true));
+
+	HorizontalStackContainer horizStack;
+	horizStack.addSizingParameter(SizingProperty(15, false));
+	horizStack.addSizingParameter(SizingProperty(-1, true));
+	horizStack.addSizingParameter(SizingProperty(15, false));
+
+	Label testControl1;
+	testControl1.setText("testControl1");
+	//testControl1.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl1\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl1.setDefaultFocusColor(Color_Window_Active_Normal);
+	testControl1.isSelectable = true;
+
+	Label testControl2;
+	testControl2.setText("testControl2");
+	//testControl2.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl2.setDefaultFocusColor(Color_Window_Active_Normal);
+	testControl2.isSelectable = true;
+
+	Label testControl3;
+	testControl3.setText("testControl3");
+	//testControl3.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl3\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl3.setDefaultFocusColor(Color_Window_Active_Normal);
+	testControl3.isSelectable = true;
+	
+	Label testControl4;
+	testControl4.setText("testControl4");
+	//testControl4.setText("1234567890123456789012345678901234567890123456789012345678901234567890\n2 testControl4\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0");
+	testControl4.setDefaultFocusColor(Color_Window_Active_Normal);
+	testControl4.isSelectable = true;
+
+	TextBox testTB;
+	testTB.setDefaultColor(Color_TextBox_Defocused);
+	testTB.setDefaultFocusColor(Color_TextBox_Focused);
+	testTB.setCursorColor(Color_TextBox_Cursor);
+	testTB.setText("Test Box haha funny :D!");
+
+	Spacer testSpacer;
+	testSpacer.setDefaultColor(0);
+	//testSpacer.setDefaultColor(Color_TextBox_Cursor);
+
+	middleStack.addControl(&testTB);
+	middleStack.addControl(&testSpacer);
+
+	horizStack.addControl(&testControl4);
+	horizStack.addControl(&middleStack);
+	horizStack.addControl(&testControl2);
+
+	testContainer.addControl(&testControl1);
+	testContainer.addControl(&horizStack);
+	testContainer.addControl(&testControl3);
+
+	middleStack.draw();
+	horizStack.draw();
+	testContainer.draw();
+	//testPrint(&testContainer);
+
+	WindowManager wm(stdscr);
+	wm.setChild(&testContainer);
+
+	//Main control loop
+	int ch = 0;
+	while((ch = getch()) != KEY_F(10))
+	{
+		/*switch(ch)
+		{
+			case KEY_RESIZE: testContainer.resize(COLS, LINES); testPrint(&testContainer); break;
+			case KEY_F(5): testContainer.setFocus(!testContainer.getFocus()); testPrint(&testContainer); break;
+			default: if(isCharNav(ch)) { testContainer.input(ch); testPrint(&testContainer); } break;
+		}*/
+		wm.input(ch);
+	}
+
+	//Shutdown
 	endwin();
 
-	//******************//
-	//* DEBUG END CODE *//
-	//******************//
+	//Debug Info after shutdown
+#ifdef __DEBUG__
+	testContainer.print();
+	horizStack.print();
 
-	printf("winHost:  %dx%d at %dx%d\n", winHost.width, winHost.height, winHost.posRow, winHost.posCol);
-	printf("testWin1: %dx%d at %dx%d\n", testWin1.width, testWin1.height, testWin1.posRow, testWin1.posCol);
-	printf("testWin2: %dx%d at %dx%d\n", testWin2.width, testWin2.height, testWin2.posRow, testWin2.posCol);
-	printf("testWin3: %dx%d at %dx%d\n", testWin3.width, testWin3.height, testWin3.posRow, testWin3.posCol);
+	testControl1.print();
+	testControl2.print();
+	testControl3.print();
+	testControl4.print();
 
-	//************//
-	//* END CODE *//
-	//************//
+	testTB.print();
+
+	testSpacer.print();
+#endif
 
 	std::exit(0);
 }
