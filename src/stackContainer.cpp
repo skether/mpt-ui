@@ -3,9 +3,15 @@
 #include <cmath>
 #include "inputHelper.h"
 
-StackContainer::StackContainer() : Container() {}
+StackContainer::StackContainer() : Container()
+{
+	type = ControlType::StackContainer;
+}
 
-VerticalStackContainer::VerticalStackContainer() : StackContainer() {}
+VerticalStackContainer::VerticalStackContainer() : StackContainer()
+{
+	type = ControlType::VerticalStackContainer;
+}
 
 void VerticalStackContainer::resizeChildren(int newWidth, int newHeight)
 {
@@ -90,7 +96,10 @@ bool VerticalStackContainer::selfHandleInput(int ch)
 	else return false;
 }
 
-HorizontalStackContainer::HorizontalStackContainer() : StackContainer() {}
+HorizontalStackContainer::HorizontalStackContainer() : StackContainer()
+{
+	type = ControlType::HorizontalStackContainer;
+}
 
 void HorizontalStackContainer::resizeChildren(int newWidth, int newHeight)
 {
@@ -179,7 +188,7 @@ bool HorizontalStackContainer::selfHandleInput(int ch)
 #include <iostream>
 void StackContainer::print(bool isFirst)
 {
-	if(isFirst) std::cout << "StackContainer:\n";
+	if(isFirst) std::cout << ControlTypeToString(type) << "\n";
 	std::cout << "\tSizingParameters:\tsize(" << sizingParameters.size() << "), capacity(" << sizingParameters.capacity() << ")\n";
 	Container::print(false);
 }

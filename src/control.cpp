@@ -2,6 +2,7 @@
 
 Control::Control()
 {
+	type = ControlType::Control;
 	parent = 0;
 	defaultColor = -1;
 	defaultFocusColor = -1;
@@ -36,7 +37,7 @@ bool Control::input(int ch)
 #include <iostream>
 void Control::print(bool isFirst)
 {
-	if(isFirst) std::cout << "Control:\n";
+	if(isFirst) std::cout << ControlTypeToString(type) << "\n";
 	std::cout << "\tParent:\t\t" << parent << "\n";
 	std::cout << "\tPosition:\tx(" << position.x << "), y(" << position.y << ")\n";
 	std::cout << "\tSize:\t\tw(" << size.width << "), h(" << size.height << ")\n";

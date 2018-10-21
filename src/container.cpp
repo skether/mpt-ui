@@ -2,6 +2,7 @@
 
 Container::Container() : Control()
 {
+	type = ControlType::Container;
 	isSelectable = true;
 	iSelectedControl = -1;
 }
@@ -84,7 +85,7 @@ bool Container::input(int ch)
 #include <iostream>
 void Container::print(bool isFirst)
 {
-	if(isFirst) std::cout << "Container:\n";
+	if(isFirst) std::cout << ControlTypeToString(type) << "\n";
 	std::cout << "\tControls:\tsize(" << controls.size() << "), capacity(" << controls.capacity() << ")\n";
 	Control::print(false);
 }

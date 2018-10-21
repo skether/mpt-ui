@@ -4,6 +4,7 @@
 
 TextBox::TextBox() : Control()
 {
+	type = ControlType::TextBox;
 	cursorColor = -1;
 	isSelectable = true;
 }
@@ -91,6 +92,7 @@ bool TextBox::input(int ch)
 #include <iostream>
 void TextBox::print(bool isFirst)
 {
+	if(isFirst) std::cout << ControlTypeToString(type) << "\n";
 	std::cout << "\tText:\t\t" << text << "\n";
 	std::cout << "\tEdited Text:\t" << editedText << "\n";
 	std::cout << "\tCursor:\t\t" << cursor << "\n";

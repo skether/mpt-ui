@@ -2,6 +2,7 @@
 
 Label::Label() : Control()
 {
+	type = ControlType::Label;
 	wrap = false;
 }
 
@@ -79,7 +80,7 @@ void Label::draw()
 #include <iostream>
 void Label::print(bool isFirst)
 {
-	if(isFirst) std::cout << "Label:\n";
+	if(isFirst) std::cout << ControlTypeToString(type) << "\n";
 	std::cout << "\tText:\t\t" << text << "\n";
 	std::cout << "\tWrap:\t\t" << wrap << "\n";
 	Control::print(false);

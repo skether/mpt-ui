@@ -7,6 +7,9 @@
 #include "globalDefine.h"
 
 #include "dimension.h"
+#include "types.h"
+
+enum class ControlType;
 
 class Control
 {
@@ -24,6 +27,8 @@ private:
 
 public:
 	bool isSelectable;
+
+	ControlType type;
 
 	Control* parent;
 
