@@ -35,8 +35,10 @@ void testPrint(Control* ctrl)
 
 int main()
 {
+#ifdef __DEBUG__
 	//Delete debugLog.txt file's contents!
 	_debugErase();
+#endif
 
 	//Init ncurses
 	initscr();	//Init screen
