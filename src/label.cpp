@@ -6,6 +6,11 @@ Label::Label() : Control()
 	wrap = false;
 }
 
+Label::Label(std::string newText) : Label()
+{
+	setText(newText);
+}
+
 void Label::draw()
 {
 	unsigned int cI = 0;
