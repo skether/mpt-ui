@@ -17,7 +17,7 @@ bool WindowManager::input(int ch)
 
 void WindowManager::resize()
 {
-	if(child != 0) (*child).resize(COLS, LINES);
+	if(child != 0) (*child).resize(COLS-1, LINES);
 	draw();
 }
 
@@ -31,11 +31,12 @@ void WindowManager::draw()
 	if(widthTarget > COLS) widthTarget = COLS;
 	for (int y = 0; y < heightTarget; ++y)
 	{
-		wmove(screen, y, 0);
 		for (int x = 0; x < widthTarget; ++x)
 		{
-			waddch(screen, (*child).getCharacterForPrinting(x, y));
+			attron((*child).getColor(x, y));
+			waddch(screen, (*child).getCharacter(x, y));
 		}
+		waddch(screen, '\n');
 	}
 	wrefresh(screen);
 }

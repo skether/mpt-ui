@@ -1,12 +1,21 @@
 #include "textBox.h"
 
 #include "inputHelper.h"
+#include "color.h"
 
 TextBox::TextBox() : Control()
 {
 	type = ControlType::TextBox;
 	cursorColor = -1;
 	isSelectable = true;
+}
+
+TextBox::TextBox(std::string newText) : TextBox()
+{
+	setDefaultColor(Color_TextBox_Defocused);
+	setDefaultFocusColor(Color_TextBox_Focused);
+	setCursorColor(Color_TextBox_Cursor);
+	setText(newText);
 }
 
 void TextBox::draw()
@@ -21,7 +30,7 @@ void TextBox::draw()
 				if(isActive)
 				{
 					if(x < signed(editedText.length())) setCharacter(x, y, editedText[x]);
-					else setCharacter(x, y, 32);
+					else setCharacter(x, y, CHAR_SPACE);
 
 					if(x == cursor) setColor(x, y, cursorColor);
 					else setColor(x, y, color);
@@ -29,14 +38,14 @@ void TextBox::draw()
 				else
 				{
 					if(x < signed(text.length())) setCharacter(x, y, text[x]);
-					else setCharacter(x, y, 32);
+					else setCharacter(x, y, CHAR_SPACE);
 
 					setColor(x, y, color);
 				}
 			}
 			else
 			{
-				setCharacter(x, y, 32);
+				setCharacter(x, y, CHAR_SPACE);
 				setColor(x, y, color);
 			}
 		}

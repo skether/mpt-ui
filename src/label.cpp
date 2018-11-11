@@ -6,6 +6,11 @@ Label::Label() : Control()
 	wrap = false;
 }
 
+Label::Label(std::string newText) : Label()
+{
+	setText(newText);
+}
+
 void Label::draw()
 {
 	unsigned int cI = 0;
@@ -18,7 +23,7 @@ void Label::draw()
 		if(text[cI] == ' ') while(cI < text.length() && text[cI] == ' ') cI++;
 		for (int x = 0; x < getSize().width; ++x)
 		{
-			if(newLine) setCharacter(x, y, 32);
+			if(newLine) setCharacter(x, y, CHAR_SPACE);
 			else
 			{
 				if(cI < text.length())
@@ -27,7 +32,7 @@ void Label::draw()
 					{
 						newLine = true;
 						wordStart = true;
-						setCharacter(x, y, 32);
+						setCharacter(x, y, CHAR_SPACE);
 					}
 					else
 					{
@@ -64,7 +69,7 @@ void Label::draw()
 						cI++;
 					}
 				}
-				else setCharacter(x, y, 32);
+				else setCharacter(x, y, CHAR_SPACE);
 			}
 
 			setColor(x, y, color);

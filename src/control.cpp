@@ -8,6 +8,7 @@ Control::Control()
 	defaultFocusColor = -1;
 	isFocused = false;
 	isSelectable = false;
+	inputExtender = 0;
 }
 
 void Control::setFocus(bool newFocus)
@@ -27,7 +28,7 @@ void Control::resize(int argW, int argH)
 	if(characterMap.capacity() < unsigned(size.width * size.height))
 		characterMap.reserve(size.width * size.height * 4);
 	characterMap.clear();
-	characterMap.resize(size.width * size.height, 32);
+	characterMap.resize(size.width * size.height, CHAR_SPACE);
 
 	if(colorMap.capacity() < unsigned(size.width * size.height))
 		colorMap.reserve(size.width * size.height * 4);
@@ -39,7 +40,8 @@ void Control::resize(int argW, int argH)
 
 bool Control::input(int ch)
 {
-	return false;
+	if(inputExtender != 0) return inputExtender(ch);
+	else return false;
 }
 
 #ifdef __DEBUG__

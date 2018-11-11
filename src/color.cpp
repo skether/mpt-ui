@@ -8,9 +8,20 @@ void setupColors()
 	init_color(Color_Window_Inactive_Background, Color_Window_Inactive_Background_ColorCode);
 	init_pair(Color_Window_Inactive_Normal, COLOR_WHITE, Color_Window_Inactive_Background);
 
+	//Window Inactive Disabled
+	init_color(Color_Window_Disabled_Foreground, Color_Window_Disabled_Foreground_ColorCode);
+	init_pair(Color_Window_Inactive_Disabled, Color_Window_Disabled_Foreground, Color_Window_Inactive_Background);
+
+	//Window Inactive Selected
+	init_color(Color_Window_Selected_Foreground, Color_Window_Selected_Foreground_ColorCode);
+	init_pair(Color_Window_Inactive_Selected, Color_Window_Selected_Foreground, Color_Window_Inactive_Background);
+
 	//Window Active Normal
 	init_color(Color_Window_Active_Background, Color_Window_Active_Background_ColorCode);
 	init_pair(Color_Window_Active_Normal, COLOR_WHITE, Color_Window_Active_Background);
+
+	//Window Active Selected
+	init_pair(Color_Window_Active_Selected, Color_Window_Selected_Foreground, Color_Window_Active_Background);
 
 	//TextBox Defocused
 	init_color(Color_TextBox_Defocused_Background, Color_TextBox_Defocused_Background_ColorCode);

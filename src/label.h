@@ -15,6 +15,8 @@ public:
 
 	Label();
 
+	Label(std::string newText);
+
 	inline std::string getText() { return text; }
 
 	inline void setText(std::string newText) { text = newText; draw(); }

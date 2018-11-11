@@ -5,9 +5,19 @@
 #define Color_Window_Inactive_Background_ColorCode 0, 0, 529
 #define Color_Window_Inactive_Normal 10
 
+#define Color_Window_Disabled_Foreground 238
+#define Color_Window_Disabled_Foreground_ColorCode 266, 266, 266
+#define Color_Window_Inactive_Disabled 11
+
+#define Color_Window_Selected_Foreground 40
+#define Color_Window_Selected_Foreground_ColorCode 0, 843, 0
+#define Color_Window_Inactive_Selected 15
+
 #define Color_Window_Active_Background 26
 #define Color_Window_Active_Background_ColorCode 0, 372, 843
 #define Color_Window_Active_Normal 20
+
+#define Color_Window_Active_Selected 25
 
 #define Color_TextBox_Defocused_Background 245
 #define Color_TextBox_Defocused_Background_ColorCode 541, 541, 541

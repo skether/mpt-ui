@@ -19,6 +19,8 @@ public:
 
 	TextBox();
 
+	TextBox(std::string newText);
+
 	inline std::string getText() { return text; }
 
 	inline void setText(std::string newText) { text = newText; cursor = text.length(); draw(); }
