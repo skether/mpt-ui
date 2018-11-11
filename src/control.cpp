@@ -27,7 +27,7 @@ void Control::resize(int argW, int argH)
 	if(characterMap.capacity() < unsigned(size.width * size.height))
 		characterMap.reserve(size.width * size.height * 4);
 	characterMap.clear();
-	characterMap.resize(size.width * size.height, 32);
+	characterMap.resize(size.width * size.height, CHAR_SPACE);
 
 	if(colorMap.capacity() < unsigned(size.width * size.height))
 		colorMap.reserve(size.width * size.height * 4);

@@ -36,7 +36,7 @@ void Container::draw()
 	{
 		for(int x = 0; x < getSize().width; x++)
 		{
-			setCharacter(x, y, 32);
+			setCharacter(x, y, CHAR_SPACE);
 			setColor(x, y, color);
 		}
 	}

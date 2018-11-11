@@ -9,6 +9,8 @@
 #include "dimension.h"
 #include "types.h"
 
+#define CHAR_SPACE 32
+
 enum class ControlType;
 
 class Control
