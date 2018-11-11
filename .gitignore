@@ -2,3 +2,4 @@ mpt-ui
 *.o
 src/oldStuff/*
 src/debugLog.txt
+src/*.conf
