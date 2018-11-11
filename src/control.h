@@ -34,6 +34,8 @@ public:
 
 	Control* parent;
 
+	bool (*inputExtender)(int ch);
+
 	Control();
 
 	//Matrix indexes to Vector Index
