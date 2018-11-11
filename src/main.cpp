@@ -93,7 +93,7 @@ void selectPathPrev()
 
 void selectPathNext()
 {
-	if((selectedPath + 1) < pathSettingsVector.size()) selectPath(selectedPath+1);
+	if((selectedPath + 1) < signed(pathSettingsVector.size())) selectPath(selectedPath+1);
 }
 
 void addPath()
