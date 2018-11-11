@@ -1,7 +1,7 @@
 #ifndef GLOBALDEFINE_H
 #define GLOBALDEFINE_H
 
-#define __DEBUG__
+//#define __DEBUG__
 
 #include <string>
 #include <vector>
