@@ -5,6 +5,10 @@
 #define Color_Window_Inactive_Background_ColorCode 0, 0, 529
 #define Color_Window_Inactive_Normal 10
 
+#define Color_Window_Disabled_Foreground 238
+#define Color_Window_Disabled_Foreground_ColorCode 266, 266, 266
+#define Color_Window_Inactive_Disabled 11
+
 #define Color_Window_Selected_Foreground 40
 #define Color_Window_Selected_Foreground_ColorCode 0, 843, 0
 #define Color_Window_Inactive_Selected 15

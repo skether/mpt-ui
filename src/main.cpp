@@ -483,6 +483,9 @@ int main()
 
 	wm.setChild(&wmContainer);
 
+	//Disable delete
+	(*hotkeyBarContainer.controls[19]).setDefaultColor(Color_Window_Inactive_Disabled);
+
 	selectCategory(2);
 	addPath();
 	wm.input(KEY_RIGHT);
@@ -501,7 +504,7 @@ int main()
 			case KEY_F(5): if(selectedCategory != 2) break; selectPathPrev(); wm.draw(); break;
 			case KEY_F(6): if(selectedCategory != 2) break; selectPathNext(); wm.draw(); break;
 			case KEY_F(7): if(selectedCategory != 2) break; addPath(); wm.input(KEY_RIGHT); wm.draw(); break;
-			case KEY_F(8): if(selectedCategory != 2) break; deletePath(); wm.draw(); break;
+			//case KEY_F(8): if(selectedCategory != 2) break; deletePath(); wm.draw(); break;
 			case KEY_F(9): saveConfig(); break;
 			//case KEY_F(5): wm.draw(); break;
 			default: wm.input(ch); break;
